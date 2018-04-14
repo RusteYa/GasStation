@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private int id;
 
@@ -21,8 +21,16 @@ public class Product {
     @JoinColumn(name = "fuels_id", nullable = false)
     private Fuel productType;
 
-    @OneToMany(mappedBy = "transactionProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "transactionProduct", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Transaction> transactionsWithProduct;
+
+    public List<Transaction> getTransactionsWithProduct() {
+        return transactionsWithProduct;
+    }
+
+    public void setTransactionsWithProduct(List<Transaction> transactionsWithProduct) {
+        this.transactionsWithProduct = transactionsWithProduct;
+    }
 
     public int getId() {
         return id;

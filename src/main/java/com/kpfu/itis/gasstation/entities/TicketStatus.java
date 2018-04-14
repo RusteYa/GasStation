@@ -10,14 +10,14 @@ import java.util.Collection;
 @Table(name = "ticketstatuses")
 public class TicketStatus {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private int id;
 
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "ticketStatus", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "ticketStatus", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Collection<Ticket> ticketsWithStatus;
 
     public int getId() {

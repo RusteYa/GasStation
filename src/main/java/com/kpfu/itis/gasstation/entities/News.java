@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Table(name = "news")
 public class News {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private int id;
 

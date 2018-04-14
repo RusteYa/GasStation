@@ -10,7 +10,7 @@ import java.util.Collection;
 @Table(name = "gasstations")
 public class GasStation {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private int id;
 
@@ -20,7 +20,7 @@ public class GasStation {
     @Column(name = "address", length = 50)
     private String address;
 
-    @OneToMany(mappedBy = "transactionGasStation", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "transactionGasStation", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Collection<Transaction> transactionsForGasStation;
 
     public int getId() {

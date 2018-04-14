@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Table(name = "tickets")
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private int id;
 
@@ -23,17 +23,17 @@ public class Ticket {
     @Column(name = "date", nullable = true)
     private Timestamp date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ticketstatuses_id", nullable = false)
     private TicketStatus ticketStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id", nullable = false)
-    private User ticketClient;
+    private AppUser ticketClient;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "staff_id", nullable = false)
-    private User ticketStaff;
+    private AppUser ticketStaff;
 
     public int getId() {
         return id;
@@ -75,19 +75,19 @@ public class Ticket {
         this.ticketStatus = ticketStatus;
     }
 
-    public User getTicketClient() {
+    public AppUser getTicketClient() {
         return ticketClient;
     }
 
-    public void setTicketClient(User ticketClient) {
+    public void setTicketClient(AppUser ticketClient) {
         this.ticketClient = ticketClient;
     }
 
-    public User getTicketStaff() {
+    public AppUser getTicketStaff() {
         return ticketStaff;
     }
 
-    public void setTicketStaff(User ticketStaff) {
+    public void setTicketStaff(AppUser ticketStaff) {
         this.ticketStaff = ticketStaff;
     }
 }

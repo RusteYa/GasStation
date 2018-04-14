@@ -1,6 +1,6 @@
 package com.kpfu.itis.gasstation.repositories;
 
-import com.kpfu.itis.gasstation.entities.User;
+import com.kpfu.itis.gasstation.entities.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
  * Created by ma on 14.04.2016.
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findById(int id);
+public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+    AppUser findById(int id);
 
-    User findByLogin(String login);
+    AppUser findByLogin(String login);
 
     void deleteUserById(int id);
 }

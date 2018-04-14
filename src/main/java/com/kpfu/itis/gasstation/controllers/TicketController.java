@@ -1,9 +1,9 @@
 package com.kpfu.itis.gasstation.controllers;
 
 import com.kpfu.itis.gasstation.entities.Ticket;
-import com.kpfu.itis.gasstation.entities.User;
+import com.kpfu.itis.gasstation.entities.AppUser;
 import com.kpfu.itis.gasstation.repositories.TicketRepository;
-import com.kpfu.itis.gasstation.repositories.UserRepository;
+import com.kpfu.itis.gasstation.repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,7 +19,7 @@ import java.util.List;
 @SessionAttributes(value = "username")
 public class TicketController {
     private TicketRepository ticketRepository;
-    private UserRepository userRepository;
+    private AppUserRepository appUserRepository;
 
     @Autowired
     public void setTicketRepository(TicketRepository ticketRepository) {
@@ -27,8 +27,8 @@ public class TicketController {
     }
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public void setAppUserRepository(AppUserRepository appUserRepository) {
+        this.appUserRepository = appUserRepository;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -51,7 +51,7 @@ public class TicketController {
         ticket.setBody(body);
         ticket.setHeader(header);
 
-        User client = userRepository.findByLogin(username);
+        AppUser client = appUserRepository.findByLogin(username);
 
         //ticket.setTicketClient(client);
 

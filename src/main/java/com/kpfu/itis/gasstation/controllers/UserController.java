@@ -1,7 +1,7 @@
 package com.kpfu.itis.gasstation.controllers;
 
-import com.kpfu.itis.gasstation.entities.User;
-import com.kpfu.itis.gasstation.repositories.UserRepository;
+import com.kpfu.itis.gasstation.entities.AppUser;
+import com.kpfu.itis.gasstation.repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,48 +18,48 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/users")
 public class UserController {
-    private UserRepository userRepository;
+    private AppUserRepository appUserRepository;
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public void setAppUserRepository(AppUserRepository appUserRepository) {
+        this.appUserRepository = appUserRepository;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getUsers(ModelMap model) {
-        List<User> users = userRepository.findAll();
-        model.put("users", users);
-        return "views/users/userlist";
+        List<AppUser> appUsers = appUserRepository.findAll();
+        model.put("appUsers", appUsers);
+        return "views/appUsers/userlist";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getUser(@PathVariable("id") int id, ModelMap model) {
-        User user = userRepository.findById(id);
-        model.put("user", user);
-        return "views/users/user";
+        AppUser appUser = appUserRepository.findById(id);
+        model.put("appUser", appUser);
+        return "views/users/appUser";
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String addUser(@RequestParam String name) {
-        User user = new User();
-        user.setName(name);
-        userRepository.save(user);
+        AppUser appUser = new AppUser();
+        appUser.setName(name);
+        appUserRepository.save(appUser);
         return "redirect:users";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public String changeUser(@PathVariable("id") int id, ModelMap model, @RequestParam String name) {
-        User user = userRepository.findById(id);
-        user.setName(name);
-        userRepository.deleteUserById(id);
-        userRepository.save(user);
-        model.put("user", user);
+        AppUser appUser = appUserRepository.findById(id);
+        appUser.setName(name);
+        appUserRepository.deleteUserById(id);
+        appUserRepository.save(appUser);
+        model.put("appUser", appUser);
         return "redirect:/users/" + id;
     }
 
     @RequestMapping(value = "/{id}/del", method = RequestMethod.POST)
     public String deleteUser(@PathVariable("id") int id) {
-        userRepository.deleteUserById(id);
+        appUserRepository.deleteUserById(id);
         return "redirect:users";
     }
 }

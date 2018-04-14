@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Table(name = "messages")
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private int id;
 
@@ -23,13 +23,13 @@ public class Message {
     @Column(name = "date")
     private Timestamp date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id", nullable = false)
-    private User messageSender;
+    private AppUser messageSender;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receiver_id", nullable = false)
-    private User messageReceiver;
+    private AppUser messageReceiver;
 
     public Timestamp getDate() {
         return date;
@@ -62,19 +62,19 @@ public class Message {
     public void setBody(String body) {
         this.body = body;
     }
-    public User getMessageSender() {
+    public AppUser getMessageSender() {
         return messageSender;
     }
 
-    public void setMessageSender(User messageSender) {
+    public void setMessageSender(AppUser messageSender) {
         this.messageSender = messageSender;
     }
 
-    public User getMessageReceiver() {
+    public AppUser getMessageReceiver() {
         return messageReceiver;
     }
 
-    public void setMessageReceiver(User messageReceiver) {
+    public void setMessageReceiver(AppUser messageReceiver) {
         this.messageReceiver = messageReceiver;
     }
 }
