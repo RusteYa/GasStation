@@ -6,13 +6,16 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
+
+
 /**
  * Created by Rustem.
  */
 @Controller
 public class SecureController {
     @RequestMapping(value = "/secure", method = RequestMethod.GET)
-    public String secure(ModelMap model) {
+    public String secure(Principal principal, ModelMap model) {
         model.addAttribute("registrationForm", new RegistrationForm());
         return "secure";
     }

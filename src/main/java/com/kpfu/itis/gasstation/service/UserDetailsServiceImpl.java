@@ -6,8 +6,8 @@ package com.kpfu.itis.gasstation.service;
 
 import com.kpfu.itis.gasstation.entities.AppUser;
 import com.kpfu.itis.gasstation.entities.UserRole;
-import com.kpfu.itis.gasstation.repositories.UserRoleRepository;
 import com.kpfu.itis.gasstation.repositories.AppUserRepository;
+import com.kpfu.itis.gasstation.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

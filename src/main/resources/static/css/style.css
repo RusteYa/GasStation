@@ -339,6 +339,11 @@ textarea.input {
 	logo
 \*----------------------------*/
 
+.logo {
+  vertical-align: -webkit-baseline-middle;
+  font-size: 48px;
+}
+
 .header-logo {
   display: inline-block;
   margin-right: 15px;
@@ -814,7 +819,9 @@ textarea.input {
 ===========================================================*/
 
 #home .home-wrap {
-  margin-left: 270px;
+  /*margin-left: 270px;*/
+  margin-left: 135px;
+  margin-right: 135px;
 }
 
 #home-slick .banner {
@@ -1727,4 +1734,13 @@ textarea.input {
   [class*='col-xs'] {
     width: 100%;
   }
+}
+
+.avatar-mini {
+  width: 40px;
+  height: 40px;
+}
+
+.container {
+  padding-top: 15px;
 }

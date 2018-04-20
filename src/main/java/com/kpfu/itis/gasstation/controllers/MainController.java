@@ -14,20 +14,20 @@ import java.security.Principal;
  * Created by Rustem.
  */
 @Controller
-public class LoginController {
-    private UserService userService;
+public class MainController {
+    private final UserService userService;
 
     @Autowired
-    public LoginController(UserService userService) {
+    public MainController(UserService userService) {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(ModelMap model, Principal principal) {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String main(Principal principal, ModelMap model) {
         if (principal != null) {
             AppUser appUser = userService.findByLogin(principal.getName());
             model.addAttribute("user", appUser);
         }
-        return "login";
+        return "main";
     }
 }

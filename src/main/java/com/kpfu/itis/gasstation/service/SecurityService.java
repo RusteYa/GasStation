@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityService {
     private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
-
     private final AuthenticationManager authenticationManager;
 
     private final UserDetailsService userDetailsService;
