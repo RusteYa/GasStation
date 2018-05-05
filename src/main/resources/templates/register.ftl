@@ -14,34 +14,37 @@
 <div class="section">
     <div class="container">
         <div class="row">
-            <div class="modal-body">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
                 <@spring.bind "registrationForm"/>
                 <form class="" method="post" action="/register">
                     <div class="form-group">
                         <label>Логин</label>
-                        <@spring.formInput "registrationForm.login" />
+                        <@spring.formInput "registrationForm.login" "class='form-control form-control-lg'"/>
                         <@spring.showErrors  '<br>', "error"/>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <@spring.formInput "registrationForm.email" />
+                        <@spring.formInput "registrationForm.email" "class='form-control form-control-lg'"/>
                         <@spring.showErrors  '<br>', "error"/>
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <@spring.formInput "registrationForm.password" />
+                        <@spring.formPasswordInput "registrationForm.hashedPassword" "class='form-control form-control-lg'"/>
                         <@spring.showErrors "<br>", "error"/>
                     </div>
                     <div class="form-group">
                         <label>Подтверждение пароля</label>
-                        <@spring.formInput "registrationForm.confirmPassword" />
+                        <@spring.formPasswordInput "registrationForm.confirmPassword" "class='form-control form-control-lg'"/>
                         <@spring.showErrors "<br>", "error"/>
                     </div>
-                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                    <button type="submit" class="btn btn-primary btn-lg">Зарегистрироваться</button>
                 </form>
             </div>
+            <div class="col-md-4"></div>
         </div>
     </div>
+</div>
 </#macro>
 
 <@base_template />

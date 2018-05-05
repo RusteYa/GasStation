@@ -55,20 +55,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
+        http.authorizeRequests().antMatchers(
+                "/",
+                "/products",
+                "/news",
+                "/promotions",
+                "/login",
+                "/logout"
+        ).permitAll();
 
-        http.authorizeRequests().antMatchers("/products").access(
-                "hasAnyRole('ROLE_CLIENT', 'ROLE_REFUELER', 'ROLE_MANAGER', 'ROLE_CASHIER')"
+        http.authorizeRequests().antMatchers("/profile").access(
+                "hasAnyRole('ROLE_CLIENT', 'ROLE_CASHIER', 'ROLE_CONTENTMANAGER', 'ROLE_MANAGER')"
         );
 
-        http.authorizeRequests().antMatchers("/index").access("hasRole('ROLE_MANAGER')");
+        http.authorizeRequests().antMatchers("/cashier/**").access(
+                "hasAnyRole('ROLE_CASHIER', 'ROLE_MANAGER')"
+        );
+
+        http.authorizeRequests().antMatchers("/contentmanager/**").access(
+                "hasAnyRole('ROLE_CONTENTMANAGER', 'ROLE_MANAGER')"
+        );
+
+        http.authorizeRequests().antMatchers("/manager/**").access("hasRole('ROLE_MANAGER')");
 
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/access-denied");
 
         http.authorizeRequests().and().formLogin()
                 .loginProcessingUrl("/do-login")
                 .loginPage("/login")
-                .defaultSuccessUrl("/secure")
+                .defaultSuccessUrl("/")
                 .failureUrl("/login?error=true")
                 .usernameParameter("login")
                 .passwordParameter("password")

@@ -1,13 +1,11 @@
 package com.kpfu.itis.gasstation.controllers;
 
-import com.kpfu.itis.gasstation.entities.AppUser;
 import com.kpfu.itis.gasstation.forms.RegistrationForm;
 import com.kpfu.itis.gasstation.service.SecurityService;
 import com.kpfu.itis.gasstation.service.UserService;
 import com.kpfu.itis.gasstation.validators.RegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -38,26 +36,22 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(ModelMap model, Principal principal) {
-        if (principal != null) {
-            AppUser appUser = userService.findByLogin(principal.getName());
-            model.addAttribute("user", appUser);
-        }
+    public String register(ModelMap model) {
+        userService.addUserToModel(model);
+
         model.addAttribute("registrationForm", new RegistrationForm());
         return "register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String addUser(@Valid RegistrationForm registrationForm, BindingResult bindingResult, Model model, Principal principal) {
+    public String addUser(@Valid RegistrationForm registrationForm, BindingResult bindingResult, ModelMap model, Principal principal) {
         if (!bindingResult.hasErrors()) {
             userService.save(registrationForm);
             securityService.autologin(registrationForm.getLogin(), registrationForm.getPassword());
             return "redirect:/secure";
         } else {
-            if (principal != null) {
-                AppUser appUser = userService.findByLogin(principal.getName());
-                model.addAttribute("user", appUser);
-            }
+            userService.addUserToModel(model);
+
             model.addAttribute("registrationForm", registrationForm);
             return "register";
         }

@@ -1,6 +1,7 @@
 package com.kpfu.itis.gasstation.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Rustem.
@@ -15,6 +16,9 @@ public class AppRole {
 
     @Column(name = "name", unique = true, nullable = false, length = 20)
     private String name;
+
+    @OneToMany(mappedBy = "appRole", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<AppUser> usersWithAppRole;
 
     public int getId() {
         return id;

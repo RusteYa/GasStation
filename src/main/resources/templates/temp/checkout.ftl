@@ -598,7 +598,7 @@
 									<div class="caption">
 										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.
 											<p>
-												<input class="input" type="password" name="password" placeholder="Enter Your Password">
+												<input class="input" type="hashedPassword" name="hashedPassword" placeholder="Enter Your Password">
 									</div>
 								</div>
 							</div>

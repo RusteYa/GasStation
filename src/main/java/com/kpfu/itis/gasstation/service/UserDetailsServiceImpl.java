@@ -5,9 +5,7 @@ package com.kpfu.itis.gasstation.service;
  */
 
 import com.kpfu.itis.gasstation.entities.AppUser;
-import com.kpfu.itis.gasstation.entities.UserRole;
 import com.kpfu.itis.gasstation.repositories.AppUserRepository;
-import com.kpfu.itis.gasstation.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,16 +20,10 @@ import java.util.List;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private AppUserRepository appUserRepository;
-    private UserRoleRepository userRoleRepository;
+    private final AppUserRepository appUserRepository;
 
     @Autowired
-    public void setUserRoleRepository(UserRoleRepository userRoleRepository) {
-        this.userRoleRepository = userRoleRepository;
-    }
-
-    @Autowired
-    public void setAppUserRepository(AppUserRepository appUserRepository) {
+    public UserDetailsServiceImpl(AppUserRepository appUserRepository) {
         this.appUserRepository = appUserRepository;
     }
 
@@ -46,19 +38,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         System.out.println("Found AppUser: " + appUser);
 
-        // [ROLE_USER, ROLE_ADMIN,..]
-        List<UserRole> userRoles = this.userRoleRepository.findByAppUser_Id(appUser.getId());
-
         List<GrantedAuthority> grantList = new ArrayList<>();
-        if (userRoles != null) {
-            for (UserRole userRole : userRoles) {
-                // ROLE_USER, ROLE_ADMIN,..
-                String role = userRole.getAppRole().getName();
-                GrantedAuthority authority = new SimpleGrantedAuthority(role);
-                grantList.add(authority);
-            }
-        }
+        String role = appUser.getAppRole().getName();
+        GrantedAuthority authority = new SimpleGrantedAuthority(role);
+        grantList.add(authority);
+        User user = new User(appUser.getLogin(), appUser.getHashedPassword(), grantList);
 
-        return new User(appUser.getLogin(), appUser.getPassword(), grantList);
+        appUser.setUser(user);
+
+        return appUser;
     }
 }

@@ -1,7 +1,7 @@
 package com.kpfu.itis.gasstation.entities;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Rustem.
@@ -11,17 +11,29 @@ import java.sql.Timestamp;
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", insertable=false, nullable = false)
     private int id;
 
-    @Column(name = "header", length = 40)
+    @Column(name = "header", length = 40, nullable = false)
     private String header;
 
-    @Column(name = "body")
+    @Column(name = "body", nullable = false)
     private String body;
 
-    @Column(name = "date")
-    private Timestamp date;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="date", nullable = false)
+    private Date date;
+
+    @Column(name = "photopath", nullable = false)
+    private String photoPath;
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
 
     public int getId() {
         return id;
@@ -43,15 +55,15 @@ public class News {
         return body;
     }
 
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 }

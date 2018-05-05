@@ -1,6 +1,11 @@
 package com.kpfu.itis.gasstation.entities;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -8,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "appusers")
-public class AppUser {
+public class AppUser implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -17,8 +22,8 @@ public class AppUser {
     @Column(name = "login", unique = true, nullable = false, length = 40)
     private String login;
 
-    @Column(name = "password", nullable = false, length = 100)
-    private String password;
+    @Column(name = "hashedpassword", nullable = false, length = 100)
+    private String hashedPassword;
 
     @Column(name = "name", length = 45)
     private String name;
@@ -28,6 +33,13 @@ public class AppUser {
 
     @Column(name = "deposit")
     private int deposit;
+
+    @Transient
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", nullable = false)
+    private AppRole appRole;
 
     @OneToMany(mappedBy = "messageSender", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Message> sentMessages;
@@ -54,10 +66,11 @@ public class AppUser {
         return "AppUser{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                ", hashedPassword='" + hashedPassword + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", deposit=" + deposit +
+                ", appRole=" + appRole +
                 ", sentMessages=" + sentMessages +
                 ", receivedMessages=" + receivedMessages +
                 ", clientTickets=" + clientTickets +
@@ -81,12 +94,12 @@ public class AppUser {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getHashedPassword() {
+        return hashedPassword;
     }
 
     public String getName() {
@@ -135,5 +148,55 @@ public class AppUser {
 
     public void setStaffTickets(List<Ticket> staffTickets) {
         this.staffTickets = staffTickets;
+    }
+
+    public AppRole getAppRole() {
+        return appRole;
+    }
+
+    public void setAppRole(AppRole appRole) {
+        this.appRole = appRole;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return user.getAuthorities();
+    }
+
+    public String getPassword() {
+        return user.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return user.getUsername();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return user.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return user.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return user.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return user.isEnabled();
     }
 }

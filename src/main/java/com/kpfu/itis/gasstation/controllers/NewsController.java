@@ -1,65 +1,126 @@
 package com.kpfu.itis.gasstation.controllers;
 
 import com.kpfu.itis.gasstation.entities.News;
+import com.kpfu.itis.gasstation.forms.NewsForm;
 import com.kpfu.itis.gasstation.repositories.NewsRepository;
+import com.kpfu.itis.gasstation.service.UploadService;
+import com.kpfu.itis.gasstation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Rustem.
  */
 @Controller
-@RequestMapping(value = "/news")
 public class NewsController {
-    private NewsRepository newsRepository;
+    private final NewsRepository newsRepository;
+    private final UserService userService;
+    private final UploadService uploadService;
 
     @Autowired
-    public void setNewsRepository(NewsRepository newsRepository) {
+    public NewsController(NewsRepository newsRepository, UserService userService, UploadService uploadService) {
         this.newsRepository = newsRepository;
+        this.userService = userService;
+        this.uploadService = uploadService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String getAllNews(ModelMap model) {
-        List<News> news = newsRepository.findAll();
-        model.put("news", news);
-        return "views/news/newslist";
+    @RequestMapping(value = "/news", method = RequestMethod.GET)
+    public String news(ModelMap model) {
+        userService.addUserToModel(model);
+        List<News> newslist = newsRepository.findAll();
+        model.put("newslist", newslist);
+        return "news";
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getNews(@PathVariable("id") int id, ModelMap model) {
-        News news = newsRepository.findById(id);
-        model.put("news", news);
-        return "views/news/news";
+    @RequestMapping(value = "/contentmanager/news/add", method = RequestMethod.GET)
+    public String addNews(ModelMap model) {
+        userService.addUserToModel(model);
+
+        model.put("status", "Добавление новости");
+
+        NewsForm newsForm = new NewsForm();
+        model.put("newsForm", newsForm);
+        return "create_update_news";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public String addNews(@RequestParam String body) {
-        News news = new News();
-        news.setBody(body);
-        newsRepository.save(news);
-        return "redirect:news";
+    @RequestMapping(value = "/contentmanager/news/add", method = RequestMethod.POST)
+    public String addNews(ModelMap model, @Valid NewsForm newsForm, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
+            String photoPath = uploadService.upload(newsForm.getFileDatas());
+
+            News news = new News();
+            news.setHeader(newsForm.getHeader());
+            news.setBody(newsForm.getBody());
+            news.setPhotoPath(photoPath);
+            news.setDate(new Date());
+
+            newsRepository.save(news);
+
+            return "redirect:/news";
+        } else {
+            userService.addUserToModel(model);
+
+            model.put("status", "Добавление новости");
+
+            model.put("newsForm", newsForm);
+            return "create_update_news";
+        }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public String changeNews(@PathVariable("id") int id, ModelMap model, @RequestParam String body) {
-        News news = newsRepository.findById(id);
-        news.setBody(body);
+    @RequestMapping(value = "/contentmanager/news/{id}/delete", method = RequestMethod.POST)
+    @Transactional
+    public String deleteNews(@PathVariable("id") int id) {
         newsRepository.deleteNewsById(id);
-        newsRepository.save(news);
-        model.put("news", news);
-        return "redirect:/news/" + id;
+        return "redirect:/news";
     }
 
-    @RequestMapping(value = "/{id}/del", method = RequestMethod.POST)
-    public String deleteMessage(@PathVariable("id") int id) {
-        newsRepository.deleteNewsById(id);
-        return "redirect:news";
+    @RequestMapping(value = "/contentmanager/news/{id}", method = RequestMethod.GET)
+    public String updateNews(@PathVariable("id") int id, ModelMap model) {
+        userService.addUserToModel(model);
+
+        model.put("status", "Изменение новости");
+
+        News news = newsRepository.findById(id);
+        NewsForm newsForm = new NewsForm();
+        newsForm.setHeader(news.getHeader());
+        newsForm.setBody(news.getBody());
+        model.put("newsForm", newsForm);
+        return "create_update_news";
+    }
+
+    @RequestMapping(value = "/contentmanager/news/{id}", method = RequestMethod.POST)
+    public String updateNews(@PathVariable("id") int id, ModelMap model, @Valid NewsForm newsForm, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
+            News news = newsRepository.findById(id);
+            String photoPath = uploadService.upload(newsForm.getFileDatas());
+
+            news.setHeader(newsForm.getHeader());
+            news.setBody(newsForm.getBody());
+            news.setDate(new Date());
+            if (!"".equals(photoPath)) {
+                news.setPhotoPath(photoPath);
+            }
+
+            newsRepository.save(news);
+
+            return "redirect:/news";
+        } else {
+            userService.addUserToModel(model);
+
+            model.put("status", "Изменение новости");
+
+            model.addAttribute("newsForm", newsForm);
+            return "create_update_news";
+        }
     }
 }

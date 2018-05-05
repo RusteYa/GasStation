@@ -30,7 +30,7 @@ public class TempController {
         return "temp/product-page";
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    @RequestMapping(value = "/temp/products", method = RequestMethod.GET)
     public String products(ModelMap model) {
         return "temp/products";
     }

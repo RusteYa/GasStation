@@ -1,7 +1,7 @@
 package com.kpfu.itis.gasstation.entities;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Rustem.
@@ -20,8 +20,20 @@ public class Promotion {
     @Column(name = "body")
     private String body;
 
-    @Column(name = "date")
-    private Timestamp date;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="date", nullable = false)
+    private Date date;
+
+    @Column(name = "photopath", nullable = false)
+    private String photoPath;
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
 
     public int getId() {
         return id;
@@ -47,11 +59,11 @@ public class Promotion {
         this.body = body;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }
