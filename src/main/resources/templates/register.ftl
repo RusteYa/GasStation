@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <@spring.formPasswordInput "registrationForm.hashedPassword" "class='form-control form-control-lg'"/>
+                        <@spring.formPasswordInput "registrationForm.password" "class='form-control form-control-lg'"/>
                         <@spring.showErrors "<br>", "error"/>
                     </div>
                     <div class="form-group">
@@ -38,7 +38,7 @@
                         <@spring.formPasswordInput "registrationForm.confirmPassword" "class='form-control form-control-lg'"/>
                         <@spring.showErrors "<br>", "error"/>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg">Зарегистрироваться</button>
+                    <button type="submit" class="btn primary-btn btn-lg">Зарегистрироваться</button>
                 </form>
             </div>
             <div class="col-md-4"></div>

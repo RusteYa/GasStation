@@ -2,6 +2,7 @@ package com.kpfu.itis.gasstation.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by Rustem.
@@ -14,48 +15,30 @@ public class Transaction {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "productamount")
-    private int productAmount;
-
-    @Column(name = "productprice")
-    private int productPrice;
-
     @Column(name = "totalsum")
     private int totalSum;
 
     @Column(name = "date")
     private Timestamp date;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "gasstation_id", nullable = false)
-    private GasStation transactionGasStation;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product transactionProduct;
+    @OneToMany(mappedBy = "transactionlotTransaction", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<TransactionLot> transactionLotsForTransaction;
 
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
+
         this.id = id;
     }
 
-    public int getProductAmount() {
-        return productAmount;
+    public List<TransactionLot> getTransactionLotsForTransaction() {
+        return transactionLotsForTransaction;
     }
 
-    public void setProductAmount(int productAmount) {
-        this.productAmount = productAmount;
-    }
-
-    public int getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(int productPrice) {
-        this.productPrice = productPrice;
+    public void setTransactionLotsForTransaction(List<TransactionLot> transactionLotsForTransaction) {
+        this.transactionLotsForTransaction = transactionLotsForTransaction;
     }
 
     public int getTotalSum() {
@@ -72,21 +55,5 @@ public class Transaction {
 
     public void setDate(Timestamp date) {
         this.date = date;
-    }
-
-    public GasStation getTransactionGasStation() {
-        return transactionGasStation;
-    }
-
-    public void setTransactionGasStation(GasStation transactionGasStation) {
-        this.transactionGasStation = transactionGasStation;
-    }
-
-    public Product getTransactionProduct() {
-        return transactionProduct;
-    }
-
-    public void setTransactionProduct(Product transactionProduct) {
-        this.transactionProduct = transactionProduct;
     }
 }

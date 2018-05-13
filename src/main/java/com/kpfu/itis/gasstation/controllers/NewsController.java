@@ -54,7 +54,7 @@ public class NewsController {
     }
 
     @RequestMapping(value = "/contentmanager/news/add", method = RequestMethod.POST)
-    public String addNews(ModelMap model, @Valid NewsForm newsForm, BindingResult bindingResult) {
+    public String addNews(@Valid NewsForm newsForm, BindingResult bindingResult, ModelMap model) {
         if (!bindingResult.hasErrors()) {
             String photoPath = uploadService.upload(newsForm.getFileDatas());
 

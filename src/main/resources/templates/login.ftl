@@ -30,7 +30,7 @@
                         <label class="form-check-label" for="сheck1">Запомнить меня</label>
                     </div>
                 <#--    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
-                    <button type="submit" class="btn btn-primary btn-lg">Войти</button>
+                    <button type="submit" class="btn primary-btn btn-lg">Войти</button>
                 </form>
             </div>
             <div class="col-md-4"></div>

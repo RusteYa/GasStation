@@ -33,7 +33,7 @@
                         <label>Фото</label>
                         <input id="fileDatas" type="file" class="form-control-file" name="fileDatas" multiple/>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg">Добавить</button>
+                    <button type="submit" class="btn primary-btn btn-lg">Добавить</button>
                 </form>
             </div>
             <div class="col-md-3"></div>

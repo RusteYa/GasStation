@@ -13,10 +13,10 @@
 
 <div class="container">
     <#if user?? && (user.appRole.name == "ROLE_CONTENTMANAGER" || user.appRole.name == "ROLE_MANAGER")>
-        <div class="row" style="margin-bottom: 10px">
+        <div class="row" style="padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #DADADA">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <a href="/contentmanager/promotion/add" class="btn btn-primary btn-lg">Добавить новую акцию</a>
+                <a href="/contentmanager/promotion/add" class="btn primary-btn btn-lg">Добавить новую акцию</a>
             </div>
             <div class="col-md-4"></div>
         </div>
@@ -44,9 +44,9 @@
         </div>
         <#if user?? && (user.appRole.name == "ROLE_CONTENTMANAGER" || user.appRole.name == "ROLE_MANAGER")>
             <div class="col-md-1">
-                <a href="/contentmanager/promotion/${promo.id}/" class="btn btn-primary btn-sm crud_btn">Изменить</a>
+                <a href="/contentmanager/promotion/${promo.id}/" class="btn primary-btn btn-sm crud_btn">Изменить</a>
                 <form action="/contentmanager/promotion/${promo.id}/delete" method="post">
-                    <input type="submit" class="btn btn-primary btn-sm crud_btn" value="Удалить"/>
+                    <input type="submit" class="btn primary-btn btn-sm crud_btn" value="Удалить"/>
                 </form>
             </div>
         </#if>

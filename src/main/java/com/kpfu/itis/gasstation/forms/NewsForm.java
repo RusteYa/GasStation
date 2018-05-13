@@ -16,7 +16,6 @@ public class NewsForm {
     @NotEmpty(message = "Введите новость")
     private String body;
 
-    @NotEmpty(message = "Загрузите фотографию")
     private MultipartFile[] fileDatas;
 
     public String getHeader() {

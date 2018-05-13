@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 /**
  * Created by Rustem.
@@ -44,7 +43,7 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String addUser(@Valid RegistrationForm registrationForm, BindingResult bindingResult, ModelMap model, Principal principal) {
+    public String addUser(@Valid RegistrationForm registrationForm, BindingResult bindingResult, ModelMap model) {
         if (!bindingResult.hasErrors()) {
             userService.save(registrationForm);
             securityService.autologin(registrationForm.getLogin(), registrationForm.getPassword());

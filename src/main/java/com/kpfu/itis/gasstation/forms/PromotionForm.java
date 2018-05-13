@@ -16,7 +16,6 @@ public class PromotionForm {
     @NotEmpty(message = "Введите акцию")
     private String body;
 
-    @NotEmpty(message = "Загрузите фотографию")
     private MultipartFile[] fileDatas;
 
     public String getHeader() {

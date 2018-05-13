@@ -6,7 +6,7 @@
     <div class="container">
         <ul class="breadcrumb">
             <li><a href="/">Домой</a></li>
-            <li><a href="/news">Новости</a></li>
+            <li><a href="/engineoils">Моторные масла</a></li>
             <li class="active">${status}</li>
         </ul>
     </div>
@@ -17,16 +17,21 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <@spring.bind "newsForm"/>
+                <@spring.bind "engineOilForm"/>
                 <form class="" method="post" action="" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label>Заголовок</label>
-                        <@spring.formInput "newsForm.header" "class='form-control form-control-lg'"/>
+                        <label>Название</label>
+                        <@spring.formInput "engineOilForm.name" "class='form-control form-control-lg'"/>
                         <@spring.showErrors  '<br>', "error"/>
                     </div>
                     <div class="form-group">
-                        <label>Новость</label>
-                        <@spring.formTextarea "newsForm.body" "class='form-control form-control-lg' rows=7"/>
+                        <label>Компания-производитель</label>
+                        <@spring.formInput "engineOilForm.manafacturer" "class='form-control form-control-lg'"/>
+                        <@spring.showErrors  '<br>', "error"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Цена</label>
+                        <input id="price" type="number" class="form-control form-control-lg" name="price" value="${engineOilForm.price}"/>
                         <@spring.showErrors  '<br>', "error"/>
                     </div>
                     <div class="form-group">

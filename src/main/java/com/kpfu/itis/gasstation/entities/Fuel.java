@@ -1,7 +1,6 @@
 package com.kpfu.itis.gasstation.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by Rustem.
@@ -17,8 +16,8 @@ public class Fuel {
     @Column(name = "name", length = 20)
     private String name;
 
-    @OneToMany(mappedBy = "productType", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<Product> productsForFuel;
+    @Column(name = "price")
+    private int price;
 
     public int getId() {
         return id;
@@ -36,11 +35,11 @@ public class Fuel {
         this.name = name;
     }
 
-    public List<Product> getProductsForFuel() {
-        return productsForFuel;
+    public int getPrice() {
+        return price;
     }
 
-    public void setProductsForFuel(List<Product> productsForFuel) {
-        this.productsForFuel = productsForFuel;
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

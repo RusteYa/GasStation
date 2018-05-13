@@ -104,7 +104,7 @@
                             <li><a href="#">Касса</a></li>
                             <li><a href="/contentmanager/news/add">Добавить новость</a></li>
                             <li><a href="/contentmanager/promotion/add">Добавить акцию</a></li>
-                            <li><a href="#">Добавить продукт</a></li>
+                            <li><a href="/contentmanager/engineoil/add">Добавить моторное масло</a></li>
                             <#break>
                         <#case "ROLE_CASHIER">
                             <li><a href="#">Касса</a></li>
@@ -112,7 +112,7 @@
                         <#case "ROLE_CONTENTMANAGER">
                             <li><a href="/contentmanager/news/add">Добавить новость</a></li>
                             <li><a href="/contentmanager/promotion/add">Добавить акцию</a></li>
-                            <li><a href="#">Добавить продукт</a></li>
+                            <li><a href="/contentmanager/engineoil/add">Добавить моторное масло</a></li>
                             <#break>
                     </#switch>
                 </ul>
@@ -124,7 +124,7 @@
                 <ul class="menu-list">
                     <li><a href="/promotions">Акции</a></li>
                     <li><a href="/news">Новости</a></li>
-                    <li><a href="/products">Продукты</a></li>
+                    <li><a href="/engineoils">Моторные масла</a></li>
                     <li><a href="/about">Об АЗС</a></li>
                 </ul>
             </div>

@@ -9,6 +9,8 @@
 
 	<title>E-SHOP HTML Template</title>
 
+    <base href="/">
+
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
 
