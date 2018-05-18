@@ -46,7 +46,7 @@ public class NewsController {
     public String addNews(ModelMap model) {
         userService.addUserToModel(model);
 
-        model.put("status", "Добавление новости");
+        model.put("status", "Добавить");
 
         NewsForm newsForm = new NewsForm();
         model.put("newsForm", newsForm);
@@ -70,7 +70,7 @@ public class NewsController {
         } else {
             userService.addUserToModel(model);
 
-            model.put("status", "Добавление новости");
+            model.put("status", "Добавить");
 
             model.put("newsForm", newsForm);
             return "create_update_news";
@@ -88,7 +88,7 @@ public class NewsController {
     public String updateNews(@PathVariable("id") int id, ModelMap model) {
         userService.addUserToModel(model);
 
-        model.put("status", "Изменение новости");
+        model.put("status", "Изменить");
 
         News news = newsRepository.findById(id);
         NewsForm newsForm = new NewsForm();
@@ -117,7 +117,7 @@ public class NewsController {
         } else {
             userService.addUserToModel(model);
 
-            model.put("status", "Изменение новости");
+            model.put("status", "Изменить");
 
             model.addAttribute("newsForm", newsForm);
             return "create_update_news";

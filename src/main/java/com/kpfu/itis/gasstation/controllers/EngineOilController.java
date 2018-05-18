@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -33,10 +34,33 @@ public class EngineOilController {
         this.engineOilRepository = engineOilRepository;
     }
 
-    @RequestMapping(value = "/engineoils", method = RequestMethod.GET)
-    public String products(ModelMap model) {
+    @RequestMapping(value = "/engineoils", method = RequestMethod.POST)
+    public String engineoils(ModelMap model, @RequestParam String filtr) {
         userService.addUserToModel(model);
+        List<EngineOil> oillist;
+
+        if ("all".equals(filtr)) {
+            oillist = engineOilRepository.findAll();
+        } else {
+            oillist = engineOilRepository.findAllByManafacturer(filtr);
+        }
+
+        List<String> manafacturerlist = engineOilRepository.findAllManafacturers();
+
+        model.put("manafacturerlist", manafacturerlist);
+        model.put("oillist", oillist);
+        model.put("filtr", filtr);
+        return "engineoils";
+    }
+
+    @RequestMapping(value = "/engineoils", method = RequestMethod.GET)
+    public String engineoils(ModelMap model) {
+        userService.addUserToModel(model);
+
         List<EngineOil> oillist = engineOilRepository.findAll();
+        List<String> manafacturerlist = engineOilRepository.findAllManafacturers();
+
+        model.put("manafacturerlist", manafacturerlist);
         model.put("oillist", oillist);
         return "engineoils";
     }
@@ -45,7 +69,7 @@ public class EngineOilController {
     public String addEngineOil(ModelMap model) {
         userService.addUserToModel(model);
 
-        model.put("status", "Добавление моторного масла");
+        model.put("status", "Добавить");
 
         EngineOilForm engineOilForm = new EngineOilForm();
         model.put("engineOilForm", engineOilForm);
@@ -69,7 +93,7 @@ public class EngineOilController {
         } else {
             userService.addUserToModel(model);
 
-            model.put("status", "Добавление моторного масла");
+            model.put("status", "Добавить");
 
             model.put("engineOilForm", engineOilForm);
             return "create_update_engineoil";
@@ -87,7 +111,7 @@ public class EngineOilController {
     public String updateNews(@PathVariable("id") int id, ModelMap model) {
         userService.addUserToModel(model);
 
-        model.put("status", "Изменение моторного масла");
+        model.put("status", "Изменить");
 
         EngineOil engineOil = engineOilRepository.findById(id);
         EngineOilForm engineOilForm = new EngineOilForm();
@@ -117,7 +141,7 @@ public class EngineOilController {
         } else {
             userService.addUserToModel(model);
 
-            model.put("status", "Изменение моторного масла");
+            model.put("status", "Изменить");
 
             model.addAttribute("engineOilForm", engineOilForm);
             return "create_update_engineoil";

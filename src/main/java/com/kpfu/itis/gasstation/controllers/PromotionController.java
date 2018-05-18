@@ -46,7 +46,7 @@ public class PromotionController {
     public String addPromotion(ModelMap model) {
         userService.addUserToModel(model);
 
-        model.put("status", "Добавление акции");
+        model.put("status", "Добавить");
 
         PromotionForm promotionForm = new PromotionForm();
         model.put("promotionForm", promotionForm);
@@ -70,7 +70,7 @@ public class PromotionController {
         } else {
             userService.addUserToModel(model);
 
-            model.put("status", "Добавление акции");
+            model.put("status", "Добавить");
 
             model.put("promotionForm", promotionForm);
             return "create_update_promotion";
@@ -88,7 +88,7 @@ public class PromotionController {
     public String updatePromotion(@PathVariable("id") int id, ModelMap model) {
         userService.addUserToModel(model);
 
-        model.put("status", "Изменение акции");
+        model.put("status", "Изменить");
 
         Promotion promotion = promotionRepository.findById(id);
         PromotionForm promotionForm = new  PromotionForm();
@@ -117,7 +117,7 @@ public class PromotionController {
         } else {
             userService.addUserToModel(model);
 
-            model.put("status", "Изменение акции");
+            model.put("status", "Изменить");
 
             model.addAttribute("promotionForm", promotionForm);
             return "create_update_promotion";

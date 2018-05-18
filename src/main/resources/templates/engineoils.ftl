@@ -25,14 +25,31 @@
         </#if>
 
         <div class="row">
-
             <div id="aside" class="col-md-3" style="border-top: 1px solid #DADADA">
                 <div class="aside">
                     <h3 class="aside-title">Фильтр по производителю</h3>
-                    <ul class="list-links">
-                        <li class="active"><a href="#">Men</a></li>
-                        <li><a href="#">Women</a></li>
-                    </ul>
+                    <form action="/engineoils" method="POST">
+                        <div class="form-group">
+                            <select name="filtr" class="custom-select">
+                                <#if !filtr?? || filtr == "all">
+                                    <option selected value="all">Все</option>
+                                    <#list manafacturerlist as manafacturer>
+                                        <option value="${manafacturer}">${manafacturer}</option>
+                                    </#list>
+                                <#else>
+                                    <option value="all">Все</option>
+                                    <#list manafacturerlist as manafacturer>
+                                        <#if filtr == manafacturer>
+                                            <option selected value="${manafacturer}">${manafacturer}</option>
+                                        <#else>
+                                            <option value="${manafacturer}">${manafacturer}</option>
+                                        </#if>
+                                    </#list>
+                                </#if>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn primary-btn btn-lg">Вывод</button>
+                    </form>
                 </div>
             </div>
 

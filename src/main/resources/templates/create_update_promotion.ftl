@@ -7,7 +7,7 @@
         <ul class="breadcrumb">
             <li><a href="/">Домой</a></li>
             <li><a href="/promotions">Акции</a></li>
-            <li class="active">${status}</li>
+            <li class="active">${status} акцию</li>
         </ul>
     </div>
 </div>
@@ -33,7 +33,7 @@
                         <label>Фото</label>
                         <input id="fileDatas" type="file" class="form-control-file" name="fileDatas" multiple/>
                     </div>
-                    <button type="submit" class="btn primary-btn btn-lg">Добавить</button>
+                    <button type="submit" class="btn primary-btn btn-lg">${status}</button>
                 </form>
             </div>
             <div class="col-md-3"></div>
