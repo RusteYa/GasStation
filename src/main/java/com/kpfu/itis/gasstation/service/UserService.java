@@ -33,20 +33,26 @@ public class UserService {
         AppUser appUser = new AppUser();
         appUser.setLogin(registrationForm.getLogin());
         appUser.setEmail(registrationForm.getEmail());
+        appUser.setName(registrationForm.getName());
         appUser.setHashedPassword(bCryptPasswordEncoder.encode(registrationForm.getPassword()));
         appUser.setAppRole(appRole);
 
         appUserRepository.save(appUser);
     }
 
-    public AppUser findByLogin(String login) {
-        return appUserRepository.findByLogin(login);
-    }
-
     public void addUserToModel(ModelMap model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof AppUser) {
             model.put("user", principal);
+        }
+    }
+
+    public AppUser getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof AppUser) {
+            return (AppUser) principal;
+        } else {
+            return null;
         }
     }
 }

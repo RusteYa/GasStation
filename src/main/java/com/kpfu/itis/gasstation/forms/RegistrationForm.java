@@ -19,6 +19,10 @@ public class RegistrationForm {
     @Email(message = "Некорректный email")
     private String email;
 
+    @NotEmpty(message = "Введите имя")
+    @Length(max = 30)
+    private String name;
+
     @NotEmpty(message = "Введите пароль")
     @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$", message = "Пароль должен содержать цифры и буквы в верхней и нижней раскладках")
     private String password;
@@ -57,4 +61,14 @@ public class RegistrationForm {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

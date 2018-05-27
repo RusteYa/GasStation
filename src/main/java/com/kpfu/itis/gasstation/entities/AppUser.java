@@ -1,5 +1,6 @@
 package com.kpfu.itis.gasstation.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +26,7 @@ public class AppUser implements UserDetails{
     @Column(name = "hashedpassword", nullable = false, length = 100)
     private String hashedPassword;
 
-    @Column(name = "name", length = 45)
+    @Column(name = "name", length = 30)
     private String name;
 
     @Column(name = "email")
@@ -158,6 +159,7 @@ public class AppUser implements UserDetails{
         this.appRole = appRole;
     }
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }
@@ -166,35 +168,42 @@ public class AppUser implements UserDetails{
         this.user = user;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return user.getAuthorities();
     }
 
+    @JsonIgnore
     public String getPassword() {
         return user.getPassword();
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return user.getUsername();
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return user.isAccountNonExpired();
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return user.isAccountNonLocked();
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return user.isCredentialsNonExpired();
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return user.isEnabled();

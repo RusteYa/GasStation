@@ -100,7 +100,7 @@
                 <ul class="category-list">
                     <#switch user.appRole.name>
                         <#case "ROLE_MANAGER">
-                            <li><a href="#">Управление персоналом</a></li>
+                            <li><a href="/manager/personnel_management">Управление персоналом</a></li>
                             <li><a href="#">Касса</a></li>
                             <li><a href="/contentmanager/news/add">Добавить новость</a></li>
                             <li><a href="/contentmanager/promotion/add">Добавить акцию</a></li>

@@ -29,6 +29,11 @@
                         <@spring.showErrors  '<br>', "error"/>
                     </div>
                     <div class="form-group">
+                        <label>Имя</label>
+                        <@spring.formInput "registrationForm.name" "class='form-control form-control-lg'"/>
+                        <@spring.showErrors  '<br>', "error"/>
+                    </div>
+                    <div class="form-group">
                         <label>Пароль</label>
                         <@spring.formPasswordInput "registrationForm.password" "class='form-control form-control-lg'"/>
                         <@spring.showErrors "<br>", "error"/>

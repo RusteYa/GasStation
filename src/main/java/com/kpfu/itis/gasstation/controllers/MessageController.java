@@ -2,6 +2,7 @@ package com.kpfu.itis.gasstation.controllers;
 
 import com.kpfu.itis.gasstation.entities.Message;
 import com.kpfu.itis.gasstation.repositories.MessageRepository;
+import com.kpfu.itis.gasstation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,27 +11,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 /**
  * Created by Rustem.
  */
 @Controller
-@RequestMapping(value = "/messages")
 public class MessageController {
-    private MessageRepository messageRepository;
+    private final MessageRepository messageRepository;
+    private final UserService userService;
 
     @Autowired
-    public void setMessageRepository(MessageRepository messageRepository) {
+    public MessageController(MessageRepository messageRepository, UserService userService) {
         this.messageRepository = messageRepository;
+        this.userService = userService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String getMessages(ModelMap model) {
-        List<Message> messages = messageRepository.findAll();
-        model.put("messages", messages);
-        return "views/messages/messagelist";
+    @RequestMapping(value = "/messages", method = RequestMethod.GET)
+    public String messages(ModelMap model) {
+        userService.addUserToModel(model);
+        return "messages";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getMessage(@PathVariable("id") int id, ModelMap model) {
