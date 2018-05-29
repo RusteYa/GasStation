@@ -53,8 +53,6 @@
     </div>
 </div>
 
-
-<#--<script src="js/personnel_management.js"></script>-->
 </#macro>
 
 <@base_template />

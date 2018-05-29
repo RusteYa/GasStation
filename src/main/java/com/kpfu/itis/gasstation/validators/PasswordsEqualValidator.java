@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
  * Created by Rustem.
  */
 @Component
-public class RegistrationValidator implements Validator {
+public class PasswordsEqualValidator implements Validator {
     public boolean supports(Class<?> clazz) {
         return RegistrationForm.class.isAssignableFrom(clazz);
     }

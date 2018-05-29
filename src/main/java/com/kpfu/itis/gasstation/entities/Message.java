@@ -1,7 +1,9 @@
 package com.kpfu.itis.gasstation.entities;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Rustem.
@@ -18,10 +20,12 @@ public class Message {
     private String header;
 
     @Column(name = "body")
+    @Type(type = "text")
     private String body;
 
-    @Column(name = "date")
-    private Timestamp date;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="date", nullable = false)
+    private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id", nullable = false)
@@ -30,14 +34,6 @@ public class Message {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receiver_id", nullable = false)
     private AppUser messageReceiver;
-
-    public Timestamp getDate() {
-        return date;
-    }
-
-    public void setDate(Timestamp date) {
-        this.date = date;
-    }
 
     public int getId() {
         return id;
@@ -76,5 +72,14 @@ public class Message {
 
     public void setMessageReceiver(AppUser messageReceiver) {
         this.messageReceiver = messageReceiver;
+    }
+
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

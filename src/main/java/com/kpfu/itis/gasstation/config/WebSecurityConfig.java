@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/logout"
         ).permitAll();
 
-        http.authorizeRequests().antMatchers("/profile").access(
+        http.authorizeRequests().antMatchers("/messages").access(
                 "hasAnyRole('ROLE_CLIENT', 'ROLE_CASHIER', 'ROLE_CONTENTMANAGER', 'ROLE_MANAGER')"
         );
 
@@ -74,10 +74,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/contentmanager/**").access(
                 "hasAnyRole('ROLE_CONTENTMANAGER', 'ROLE_MANAGER')"
-        );
-
-        http.authorizeRequests().antMatchers("/manager/**").access(
-                "hasRole('ROLE_MANAGER')"
         );
 
         http.authorizeRequests().antMatchers("/manager/**").access("hasRole('ROLE_MANAGER')");

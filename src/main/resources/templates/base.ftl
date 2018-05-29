@@ -77,7 +77,7 @@
 
                         <ul class="custom-menu">
                             <li><a href="#"><i class="fa fa-user-o"></i>Мой аккаунт</a></li>
-                            <li><a href="#"><i class="fa fa-comment-o"></i>Мои сообщения</a></li>
+                            <li><a href="/messages"><i class="fa fa-comment-o"></i>Мои сообщения</a></li>
                             <li><a href="#"><i class="fa  fa-question-circle-o"></i>Мои запросы</a></li>
                         </ul>
                     </li>

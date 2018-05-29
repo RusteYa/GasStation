@@ -3,7 +3,7 @@ package com.kpfu.itis.gasstation.controllers;
 import com.kpfu.itis.gasstation.forms.RegistrationForm;
 import com.kpfu.itis.gasstation.service.SecurityService;
 import com.kpfu.itis.gasstation.service.UserService;
-import com.kpfu.itis.gasstation.validators.RegistrationValidator;
+import com.kpfu.itis.gasstation.validators.PasswordsEqualValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,7 +31,7 @@ public class RegistrationController {
 
     @InitBinder(value = "registrationForm")
     protected void initBinder(final WebDataBinder binder) {
-        binder.addValidators(new RegistrationValidator());
+        binder.addValidators(new PasswordsEqualValidator());
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)

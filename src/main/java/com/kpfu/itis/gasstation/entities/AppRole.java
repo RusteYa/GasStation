@@ -17,6 +17,9 @@ public class AppRole {
     @Column(name = "name", unique = true, nullable = false, length = 20)
     private String name;
 
+    @Column(name = "level", nullable = false)
+    private int level;
+
     @OneToMany(mappedBy = "appRole", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<AppUser> usersWithAppRole;
 
@@ -34,5 +37,22 @@ public class AppRole {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public List<AppUser> getUsersWithAppRole() {
+        return usersWithAppRole;
+    }
+
+    public void setUsersWithAppRole(List<AppUser> usersWithAppRole) {
+        this.usersWithAppRole = usersWithAppRole;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
