@@ -36,6 +36,11 @@ public class PersonnelController {
         this.appRoleRepository = appRoleRepository;
     }
 
+    @RequestMapping(value = "/manager/personnel_management/pdf", method = RequestMethod.GET)
+    public String personnelPDF() {
+        return "personnelView";
+    }
+
     @RequestMapping(value = "/manager/personnel_management", method = RequestMethod.GET)
     public String personnel(ModelMap model) {
         userService.addUserToModel(model);

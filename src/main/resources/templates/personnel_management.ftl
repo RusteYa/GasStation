@@ -51,6 +51,14 @@
             </tbody>
         </table>
     </div>
+
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <a href="/manager/personnel_management/pdf"><i class="fa fa-file-text fa-3x" aria-hidden="true"></i></a>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
 </div>
 
 </#macro>
