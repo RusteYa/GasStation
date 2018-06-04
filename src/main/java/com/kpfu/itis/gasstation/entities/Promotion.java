@@ -1,5 +1,7 @@
 package com.kpfu.itis.gasstation.entities;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,6 +20,7 @@ public class Promotion {
     private String header;
 
     @Column(name = "body")
+    @Type(type = "text")
     private String body;
 
     @Temporal(TemporalType.TIMESTAMP)

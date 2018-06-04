@@ -13,6 +13,8 @@ import java.util.List;
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     AppUser findById(int id);
 
+    AppUser findFirstByAppRoleName(String name);
+
     AppUser findByLogin(String login);
 
     List<AppUser> findAllByLoginContains(String value);

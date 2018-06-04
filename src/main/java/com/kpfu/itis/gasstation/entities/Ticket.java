@@ -1,7 +1,10 @@
 package com.kpfu.itis.gasstation.entities;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Rustem.
@@ -15,13 +18,20 @@ public class Ticket {
     private int id;
 
     @Column(name = "header")
+    @Length(max = 40)
     private String header;
 
-    @Column(name = "body")
-    private String body;
+    @Column(name = "request")
+    @Type(type = "text")
+    private String request;
 
-    @Column(name = "date", nullable = true)
-    private Timestamp date;
+    @Column(name = "response")
+    @Type(type = "text")
+    private String response;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="date", nullable = false)
+    private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ticketstatuses_id", nullable = false)
@@ -51,22 +61,6 @@ public class Ticket {
         this.header = header;
     }
 
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public Timestamp getDate() {
-        return date;
-    }
-
-    public void setDate(Timestamp date) {
-        this.date = date;
-    }
-
     public TicketStatus getTicketStatus() {
         return ticketStatus;
     }
@@ -89,5 +83,31 @@ public class Ticket {
 
     public void setTicketStaff(AppUser ticketStaff) {
         this.ticketStaff = ticketStaff;
+    }
+
+
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(String request) {
+        this.request = request;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

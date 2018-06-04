@@ -64,7 +64,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/logout"
         ).permitAll();
 
-        http.authorizeRequests().antMatchers("/messages").access(
+        http.authorizeRequests().antMatchers("/messages/**").access(
+                "hasAnyRole('ROLE_CLIENT', 'ROLE_CASHIER', 'ROLE_CONTENTMANAGER', 'ROLE_MANAGER')"
+        );
+
+        http.authorizeRequests().antMatchers("/tickets/**").access(
                 "hasAnyRole('ROLE_CLIENT', 'ROLE_CASHIER', 'ROLE_CONTENTMANAGER', 'ROLE_MANAGER')"
         );
 
