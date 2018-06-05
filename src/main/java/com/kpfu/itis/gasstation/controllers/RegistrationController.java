@@ -2,7 +2,7 @@ package com.kpfu.itis.gasstation.controllers;
 
 import com.kpfu.itis.gasstation.forms.RegistrationForm;
 import com.kpfu.itis.gasstation.service.SecurityService;
-import com.kpfu.itis.gasstation.service.UserService;
+import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
 import com.kpfu.itis.gasstation.validators.PasswordsEqualValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +20,12 @@ import javax.validation.Valid;
  */
 @Controller
 public class RegistrationController {
-    private UserService userService;
+    private AppUserService appUserService;
     private SecurityService securityService;
 
     @Autowired
-    public RegistrationController(UserService userService, SecurityService securityService) {
-        this.userService = userService;
+    public RegistrationController(AppUserService appUserService, SecurityService securityService) {
+        this.appUserService = appUserService;
         this.securityService = securityService;
     }
 
@@ -36,8 +36,7 @@ public class RegistrationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(ModelMap model) {
-        userService.addUserToModel(model);
-
+        appUserService.addAppUserToModel(model);
         model.addAttribute("registrationForm", new RegistrationForm());
         return "register";
     }
@@ -45,12 +44,11 @@ public class RegistrationController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String addUser(@Valid RegistrationForm registrationForm, BindingResult bindingResult, ModelMap model) {
         if (!bindingResult.hasErrors()) {
-            userService.save(registrationForm);
+            appUserService.saveAppUserFromRegistrationForm(registrationForm);
             securityService.autologin(registrationForm.getLogin(), registrationForm.getPassword());
             return "redirect:/secure";
         } else {
-            userService.addUserToModel(model);
-
+            appUserService.addAppUserToModel(model);
             model.addAttribute("registrationForm", registrationForm);
             return "register";
         }

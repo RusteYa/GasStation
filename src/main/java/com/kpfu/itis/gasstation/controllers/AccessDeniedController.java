@@ -1,6 +1,6 @@
 package com.kpfu.itis.gasstation.controllers;
 
-import com.kpfu.itis.gasstation.service.UserService;
+import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class AccessDeniedController {
-    private UserService userService;
+    private AppUserService appUserService;
 
     @Autowired
-    public AccessDeniedController(UserService userService) {
-        this.userService = userService;
+    public AccessDeniedController(AppUserService appUserService) {
+        this.appUserService = appUserService;
     }
 
     @RequestMapping(value = "/access-denied", method = RequestMethod.GET)
     public String accessDenied(ModelMap model) {
-        userService.addUserToModel(model);
+        appUserService.addAppUserToModel(model);
         return "access_denied";
     }
 }

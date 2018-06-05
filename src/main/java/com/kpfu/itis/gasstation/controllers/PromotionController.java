@@ -2,9 +2,8 @@ package com.kpfu.itis.gasstation.controllers;
 
 import com.kpfu.itis.gasstation.entities.Promotion;
 import com.kpfu.itis.gasstation.forms.PromotionForm;
-import com.kpfu.itis.gasstation.repositories.PromotionRepository;
-import com.kpfu.itis.gasstation.service.UploadService;
-import com.kpfu.itis.gasstation.service.UserService;
+import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
+import com.kpfu.itis.gasstation.service.entities_service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,31 +21,27 @@ import java.util.List;
  */
 @Controller
 public class PromotionController {
-    private final PromotionRepository promotionRepository;
-    private final UserService userService;
-    private final UploadService uploadService;
+    private final PromotionService promotionService;
+    private final AppUserService appUserService;
 
     @Autowired
-    public PromotionController(PromotionRepository promotionRepository, UserService userService, UploadService uploadService) {
-        this.promotionRepository = promotionRepository;
-        this.userService = userService;
-        this.uploadService = uploadService;
+    public PromotionController(AppUserService appUserService, PromotionService promotionService) {
+        this.appUserService = appUserService;
+        this.promotionService = promotionService;
     }
 
     @RequestMapping(value = "/promotions", method = RequestMethod.GET)
     public String promotions(ModelMap model) {
-        userService.addUserToModel(model);
-        List<Promotion> promoList = promotionRepository.findAll();
+        appUserService.addAppUserToModel(model);
+        List<Promotion> promoList = promotionService.getAllPromotions();
         model.put("promolist", promoList);
         return "promotions";
     }
 
     @RequestMapping(value = "/contentmanager/promotion/add", method = RequestMethod.GET)
     public String addPromotion(ModelMap model) {
-        userService.addUserToModel(model);
-
+        appUserService.addAppUserToModel(model);
         model.put("status", "Добавить");
-
         PromotionForm promotionForm = new PromotionForm();
         model.put("promotionForm", promotionForm);
         return "create_update_promotion";
@@ -56,22 +50,11 @@ public class PromotionController {
     @RequestMapping(value = "/contentmanager/promotion/add", method = RequestMethod.POST)
     public String addPromotion(ModelMap model, @Valid PromotionForm promotionForm, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
-            String photoPath = uploadService.upload(promotionForm.getFileDatas());
-
-            Promotion promotion = new Promotion();
-            promotion.setHeader(promotionForm.getHeader());
-            promotion.setBody(promotionForm.getBody());
-            promotion.setPhotoPath(photoPath);
-            promotion.setDate(new Date());
-
-            promotionRepository.save(promotion);
-
+            promotionService.savePromotionFromPromotionForm(promotionForm);
             return "redirect:/promotions";
         } else {
-            userService.addUserToModel(model);
-
+            appUserService.addAppUserToModel(model);
             model.put("status", "Добавить");
-
             model.put("promotionForm", promotionForm);
             return "create_update_promotion";
         }
@@ -80,20 +63,15 @@ public class PromotionController {
     @RequestMapping(value = "/contentmanager/promotion/{id}/delete", method = RequestMethod.POST)
     @Transactional
     public String deletePromotion(@PathVariable("id") int id) {
-        promotionRepository.deletePromotionById(id);
+        promotionService.deletePromotionWithId(id);
         return "redirect:/promotions";
     }
 
     @RequestMapping(value = "/contentmanager/promotion/{id}", method = RequestMethod.GET)
     public String updatePromotion(@PathVariable("id") int id, ModelMap model) {
-        userService.addUserToModel(model);
-
+        appUserService.addAppUserToModel(model);
         model.put("status", "Изменить");
-
-        Promotion promotion = promotionRepository.findById(id);
-        PromotionForm promotionForm = new  PromotionForm();
-        promotionForm.setHeader(promotion.getHeader());
-        promotionForm.setBody(promotion.getBody());
+        PromotionForm promotionForm = promotionService.createPromotionFormFromPromotionById(id);
         model.put("promotionForm", promotionForm);
         return "create_update_promotion";
     }
@@ -101,24 +79,11 @@ public class PromotionController {
     @RequestMapping(value = "/contentmanager/promotion/{id}", method = RequestMethod.POST)
     public String updatePromotion(@PathVariable("id") int id, ModelMap model, @Valid PromotionForm promotionForm, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
-            Promotion promotion = promotionRepository.findById(id);
-            String photoPath = uploadService.upload(promotionForm.getFileDatas());
-
-            promotion.setHeader(promotionForm.getHeader());
-            promotion.setBody(promotionForm.getBody());
-            promotion.setDate(new Date());
-            if (!"".equals(photoPath)) {
-                promotion.setPhotoPath(photoPath);
-            }
-
-            promotionRepository.save(promotion);
-
+            promotionService.updatePromotionFromPromotionFormById(id, promotionForm);
             return "redirect:/promotions";
         } else {
-            userService.addUserToModel(model);
-
+            appUserService.addAppUserToModel(model);
             model.put("status", "Изменить");
-
             model.addAttribute("promotionForm", promotionForm);
             return "create_update_promotion";
         }

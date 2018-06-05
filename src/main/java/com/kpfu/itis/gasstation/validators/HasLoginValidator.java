@@ -1,7 +1,7 @@
 package com.kpfu.itis.gasstation.validators;
 
 import com.kpfu.itis.gasstation.forms.MessageForm;
-import com.kpfu.itis.gasstation.repositories.AppUserRepository;
+import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -11,10 +11,10 @@ import org.springframework.validation.Validator;
  */
 @Component
 public class HasLoginValidator implements Validator {
-    private final AppUserRepository appUserRepository;
+    private AppUserService appUserService;
 
-    public HasLoginValidator(AppUserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
+    public HasLoginValidator(AppUserService appUserService) {
+        this.appUserService = appUserService;
     }
 
     public boolean supports(Class<?> clazz) {
@@ -24,7 +24,7 @@ public class HasLoginValidator implements Validator {
     public void validate(Object target, Errors errors) {
         MessageForm messageForm = (MessageForm) target;
 
-        if (appUserRepository.findByLogin(messageForm.getRecipientLogin()) == null) {
+        if (appUserService.getAppUserByLogin(messageForm.getRecipientLogin()) == null) {
             errors.rejectValue("recipientLogin", "recipientLogin.loginDontMatch", "Пользователя с таким логином не существует");
         }
     }

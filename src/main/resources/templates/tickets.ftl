@@ -12,13 +12,15 @@
 </div>
 
 <div class="container">
-    <div class="row" style="margin-bottom: 10px; ">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <a href="/tickets/add" class="btn primary-btn btn-lg">Создать заявку</a>
+    <#if user.appRole.name == "ROLE_CASHIER" || user.appRole.name == "ROLE_CONTENTMANAGER" || user.appRole.name == "ROLE_CLIENT">
+        <div class="row" style="margin-bottom: 10px; ">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <a href="/tickets/add" class="btn primary-btn btn-lg">Создать заявку</a>
+            </div>
+            <div class="col-md-4"></div>
         </div>
-        <div class="col-md-4"></div>
-    </div>
+    </#if>
 
     <div class="row">
         <table id="table" class="table" style="table-layout: fixed">
@@ -47,7 +49,8 @@
                     <td>${ticket.date}</td>
                     <#if user.appRole.name == "ROLE_MANAGER">
                         <td>
-                            <a href="/manager/ticket/${ticket.id}/" style="width: 120px" class="btn primary-btn btn-sm crud_btn">Рассмотреть</a>
+                            <a href="/manager/ticket/${ticket.id}/" style="width: 120px"
+                               class="btn primary-btn btn-sm crud_btn">Рассмотреть</a>
                         </td>
                     </#if>
                 </tr>

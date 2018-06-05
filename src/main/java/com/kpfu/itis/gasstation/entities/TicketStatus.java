@@ -14,7 +14,7 @@ public class TicketStatus {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true, nullable = false, length = 20)
     private String name;
 
     @OneToMany(mappedBy = "ticketStatus", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
