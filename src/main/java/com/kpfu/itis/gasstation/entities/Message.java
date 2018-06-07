@@ -1,5 +1,6 @@
 package com.kpfu.itis.gasstation.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ public class Message {
     private String body;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="date", nullable = false)
+    @Column(name = "date", nullable = false)
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -58,6 +59,8 @@ public class Message {
     public void setBody(String body) {
         this.body = body;
     }
+
+    @JsonIgnore
     public AppUser getMessageSender() {
         return messageSender;
     }
@@ -66,6 +69,7 @@ public class Message {
         this.messageSender = messageSender;
     }
 
+    @JsonIgnore
     public AppUser getMessageReceiver() {
         return messageReceiver;
     }

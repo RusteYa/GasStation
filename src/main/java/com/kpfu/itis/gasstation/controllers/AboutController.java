@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by Rustem.
  */
 @Controller
-public class AccessDeniedController {
-    @RequestMapping(value = "/access-denied", method = RequestMethod.GET)
-    public String accessDenied(ModelMap model) {
-        return "access_denied";
+public class AboutController {
+    @RequestMapping(value = "/about", method = RequestMethod.GET)
+    public String about(ModelMap model) {
+        return "about";
     }
 }

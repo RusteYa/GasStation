@@ -12,5 +12,4 @@ public class GasStationApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }

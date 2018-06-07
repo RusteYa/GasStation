@@ -2,7 +2,6 @@ package com.kpfu.itis.gasstation.controllers;
 
 import com.kpfu.itis.gasstation.entities.EngineOil;
 import com.kpfu.itis.gasstation.forms.EngineOilForm;
-import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
 import com.kpfu.itis.gasstation.service.entities_service.EngineOilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,12 +21,10 @@ import java.util.List;
  */
 @Controller
 public class EngineOilController {
-    private final AppUserService appUserService;
     private final EngineOilService engineOilService;
 
     @Autowired
-    public EngineOilController(AppUserService appUserService, EngineOilService engineOilService) {
-        this.appUserService = appUserService;
+    public EngineOilController(EngineOilService engineOilService) {
         this.engineOilService = engineOilService;
     }
 
@@ -38,7 +35,6 @@ public class EngineOilController {
 
     @RequestMapping(value = "/engineoils", method = RequestMethod.POST)
     public String engineoils(ModelMap model, @RequestParam String filtr) {
-        appUserService.addAppUserToModel(model);
         List<EngineOil> oillist;
         if ("all".equals(filtr)) {
             oillist = engineOilService.getAllEngineOils();
@@ -54,7 +50,6 @@ public class EngineOilController {
 
     @RequestMapping(value = "/engineoils", method = RequestMethod.GET)
     public String engineoils(ModelMap model) {
-        appUserService.addAppUserToModel(model);
         List<EngineOil> oillist = engineOilService.getAllEngineOils();
         List<String> manafacturerlist = engineOilService.getAllManafacturers();
         model.put("manafacturerlist", manafacturerlist);
@@ -64,7 +59,6 @@ public class EngineOilController {
 
     @RequestMapping(value = "/contentmanager/engineoil/add", method = RequestMethod.GET)
     public String addEngineOil(ModelMap model) {
-        appUserService.addAppUserToModel(model);
         model.put("status", "Добавить");
         EngineOilForm engineOilForm = new EngineOilForm();
         model.put("engineOilForm", engineOilForm);
@@ -77,7 +71,6 @@ public class EngineOilController {
             engineOilService.saveEngineOilFromEngineOilForm(engineOilForm);
             return "redirect:/engineoils";
         } else {
-            appUserService.addAppUserToModel(model);
             model.put("status", "Добавить");
             model.put("engineOilForm", engineOilForm);
             return "create_update_engineoil";
@@ -93,7 +86,6 @@ public class EngineOilController {
 
     @RequestMapping(value = "/contentmanager/engineoil/{id}", method = RequestMethod.GET)
     public String updateNews(@PathVariable("id") int id, ModelMap model) {
-        appUserService.addAppUserToModel(model);
         model.put("status", "Изменить");
         EngineOilForm engineOilForm = engineOilService.createEngineOilFormFromEngineOilById(id);
         model.put("engineOilForm", engineOilForm);
@@ -106,7 +98,6 @@ public class EngineOilController {
             engineOilService.updateEngineOilFromEngineOilFormById(id, engineOilForm);
             return "redirect:/engineoils";
         } else {
-            appUserService.addAppUserToModel(model);
             model.put("status", "Изменить");
             model.addAttribute("engineOilForm", engineOilForm);
             return "create_update_engineoil";

@@ -36,7 +36,6 @@ public class RegistrationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(ModelMap model) {
-        appUserService.addAppUserToModel(model);
         model.addAttribute("registrationForm", new RegistrationForm());
         return "register";
     }
@@ -46,9 +45,8 @@ public class RegistrationController {
         if (!bindingResult.hasErrors()) {
             appUserService.saveAppUserFromRegistrationForm(registrationForm);
             securityService.autologin(registrationForm.getLogin(), registrationForm.getPassword());
-            return "redirect:/secure";
+            return "redirect:/";
         } else {
-            appUserService.addAppUserToModel(model);
             model.addAttribute("registrationForm", registrationForm);
             return "register";
         }

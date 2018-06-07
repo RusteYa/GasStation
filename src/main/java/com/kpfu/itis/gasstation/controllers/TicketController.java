@@ -4,7 +4,6 @@ import com.kpfu.itis.gasstation.entities.Ticket;
 import com.kpfu.itis.gasstation.entities.TicketStatus;
 import com.kpfu.itis.gasstation.forms.TicketRequestForm;
 import com.kpfu.itis.gasstation.forms.TicketResponseForm;
-import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
 import com.kpfu.itis.gasstation.service.entities_service.TicketService;
 import com.kpfu.itis.gasstation.service.entities_service.TicketStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +25,15 @@ import java.util.stream.Collectors;
 public class TicketController {
     private final TicketService ticketService;
     private final TicketStatusService ticketStatusService;
-    private final AppUserService appUserService;
-
 
     @Autowired
-    public TicketController(AppUserService appUserService, TicketService ticketService, TicketStatusService ticketStatusService) {
-        this.appUserService = appUserService;
+    public TicketController(TicketService ticketService, TicketStatusService ticketStatusService) {
         this.ticketService = ticketService;
         this.ticketStatusService = ticketStatusService;
     }
 
     @RequestMapping(value = "/tickets", method = RequestMethod.GET)
     public String getTickets(ModelMap model) {
-        appUserService.addAppUserToModel(model);
         List<Ticket> ticketlist = ticketService.getAllTickets();
         model.put("ticketlist", ticketlist);
         return "tickets";
@@ -46,7 +41,6 @@ public class TicketController {
 
     @RequestMapping(value = "/tickets/add", method = RequestMethod.GET)
     public String addTicket(ModelMap model) {
-        appUserService.addAppUserToModel(model);
         TicketRequestForm ticketRequestForm = new TicketRequestForm();
         model.put("ticketRequestForm", ticketRequestForm);
         return "create_ticket";
@@ -58,7 +52,6 @@ public class TicketController {
             ticketService.saveTicketFromTicketRequestForm(ticketRequestForm);
             return "redirect:/tickets";
         } else {
-            appUserService.addAppUserToModel(model);
             model.put("ticketRequestForm", ticketRequestForm);
             return "create_ticket";
         }

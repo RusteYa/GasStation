@@ -153,6 +153,7 @@
             data: {"value": value},
             success: function (data, status) {
                 console.log(data);
+                console.log(data.userlist);
                 $('#personnel_table_body').empty();
                 data.userlist.forEach(function(user) {
                     $('#personnel_table_body').append("<tr>\n" +

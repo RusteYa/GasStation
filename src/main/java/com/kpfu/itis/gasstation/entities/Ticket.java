@@ -1,5 +1,6 @@
 package com.kpfu.itis.gasstation.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 
@@ -39,10 +40,12 @@ public class Ticket {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id", nullable = false)
+    @JsonIgnore
     private AppUser ticketClient;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "staff_id", nullable = false)
+    @JsonIgnore
     private AppUser ticketStaff;
 
     public int getId() {
@@ -85,7 +88,6 @@ public class Ticket {
         this.ticketStaff = ticketStaff;
     }
 
-
     public String getRequest() {
         return request;
     }
@@ -101,7 +103,6 @@ public class Ticket {
     public void setResponse(String response) {
         this.response = response;
     }
-
 
     public Date getDate() {
         return date;

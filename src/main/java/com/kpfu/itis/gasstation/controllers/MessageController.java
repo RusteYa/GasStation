@@ -43,7 +43,6 @@ public class MessageController {
 
     @RequestMapping(value = "/messages/send", method = RequestMethod.GET)
     public String sendMessage(ModelMap model) {
-        appUserService.addAppUserToModel(model);
         MessageForm messageForm = new MessageForm();
         model.put("messageForm", messageForm);
         return "send_message";
@@ -55,7 +54,6 @@ public class MessageController {
             messageService.saveMessageFromMessageForm(messageForm);
             return "redirect:/messages";
         } else {
-            appUserService.addAppUserToModel(model);
             model.put("newsForm", messageForm);
             return "send_message";
         }

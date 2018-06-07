@@ -40,7 +40,6 @@ public class PersonnelController {
 
     @RequestMapping(value = "/manager/personnel_management", method = RequestMethod.GET)
     public String personnel(ModelMap model) {
-        appUserService.addAppUserToModel(model);
         List<AppUser> userlist = appUserService.getAllAppUsersWithoutCurrentAppUser();
         model.put("userlist", userlist);
         return "personnel_management";
@@ -48,14 +47,10 @@ public class PersonnelController {
 
     @ResponseBody
     @RequestMapping(value = "/manager/personnel_management/find", method = RequestMethod.GET)
-    public ModelAndView findPersonnelContainsValue(@RequestParam(value = "value") String value) {
-        ModelMap model = new ModelMap();
-        appUserService.addAppUserToModel(model);
+    public ModelAndView findPersonnelContainsValue(@RequestParam(value = "value") String value, ModelMap model) {
         List<AppUser> userlist = appUserService.getAllAppUsersWithoutCurrentAppUserByLoginContains(value);
         model.put("userlist", userlist);
-        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-        modelAndView.addObject("userlist", userlist);
-        return modelAndView;
+        return new ModelAndView(new MappingJackson2JsonView(), model);
     }
 
     @RequestMapping(value = "/manager/personnel_management/{id}/delete", method = RequestMethod.POST)
@@ -67,7 +62,6 @@ public class PersonnelController {
 
     @RequestMapping(value = "/manager/user/{id}", method = RequestMethod.GET)
     public String updateAppUser(@PathVariable("id") int id, ModelMap model) {
-        appUserService.addAppUserToModel(model);
         model.put("status", "Изменить");
         UserForm userForm = appUserService.createUserFormFromAppUserWithId(id);
         List<String> roles = appRoleService.getAllAppRoles().stream().map(AppRole::getName).collect(Collectors.toList());
@@ -82,7 +76,6 @@ public class PersonnelController {
             appUserService.updateAppUserFromUserFormById(id, userForm);
             return "redirect:/manager/personnel_management";
         } else {
-            appUserService.addAppUserToModel(model);
             model.put("status", "Изменить");
             List<String> roles = appRoleService.getAllAppRoles().stream().map(AppRole::getName).collect(Collectors.toList());
             model.addAttribute("userForm", userForm);

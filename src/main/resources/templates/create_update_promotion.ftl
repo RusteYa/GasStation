@@ -25,7 +25,7 @@
                         <@spring.showErrors  '<br>', "error"/>
                     </div>
                     <div class="form-group">
-                        <label>Новость</label>
+                        <label>Содержание</label>
                         <@spring.formTextarea "promotionForm.body" "class='form-control form-control-lg' rows=7"/>
                         <@spring.showErrors  '<br>', "error"/>
                     </div>

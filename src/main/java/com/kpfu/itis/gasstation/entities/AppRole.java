@@ -1,5 +1,7 @@
 package com.kpfu.itis.gasstation.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class AppRole {
         this.name = name;
     }
 
-
+    @JsonIgnore
     public List<AppUser> getUsersWithAppRole() {
         return usersWithAppRole;
     }
