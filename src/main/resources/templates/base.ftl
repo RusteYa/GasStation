@@ -60,7 +60,7 @@
                         </div>
                         <a href="/logout" class="text-uppercase">Logout</a>
                         <#else>
-                        <a href="/login" class="text-uppercase">Login</a> / <a href="/register" class="text-uppercase">Register</a>
+                        <a href="/login" class="text-uppercase">Login</a>/<a href="/register" class="text-uppercase">Register</a><li><a href="/auth/google"><i class="fa fa-google-plus"></i></a>
                         </#if>
 
                         <ul class="custom-menu">
@@ -120,6 +120,23 @@
     </div>
 </div>
 
+<script>
+    (function(){
+        var widget_id = 896764;
+        _shcp =[{widget_id : widget_id}];
+        var lang =(navigator.language || navigator.systemLanguage
+                || navigator.userLanguage ||"en")
+                .substr(0,2).toLowerCase();
+        var url ="widget.siteheart.com/widget/sh/"+ widget_id +"/"+ lang +"/widget.js";
+        var hcc = document.createElement("script");
+        hcc.type ="text/javascript";
+        hcc.async =true;
+        hcc.src =("https:"== document.location.protocol ?"https":"http")
+                +"://"+ url;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hcc, s.nextSibling);
+    })();
+</script>
 <@body />
 
 <footer id="footer" class="section section-grey">
@@ -130,13 +147,6 @@
                     <div class="header-logo">
                         <a class="logo" style="margin-right: 0" href="/">ITIS OIL</a>
                     </div>
-                    <ul class="footer-social">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                    </ul>
                 </div>
             </div>
         </div>
