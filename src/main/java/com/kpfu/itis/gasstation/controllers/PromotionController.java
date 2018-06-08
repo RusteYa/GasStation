@@ -2,7 +2,7 @@ package com.kpfu.itis.gasstation.controllers;
 
 import com.kpfu.itis.gasstation.entities.Promotion;
 import com.kpfu.itis.gasstation.forms.PromotionForm;
-import com.kpfu.itis.gasstation.service.entities_service.PromotionService;
+import com.kpfu.itis.gasstation.service.entities.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;

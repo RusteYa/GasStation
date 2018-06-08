@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.social.security.SocialUserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "appusers")
-public class AppUser implements UserDetails{
+public class AppUser implements UserDetails, SocialUserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -23,13 +24,13 @@ public class AppUser implements UserDetails{
     @Column(name = "login", unique = true, nullable = false, length = 40)
     private String login;
 
-    @Column(name = "hashedpassword", nullable = false, length = 100)
+    @Column(name = "hashedpassword", nullable = false, length = 128)
     private String hashedPassword;
 
-    @Column(name = "name", length = 30)
+    @Column(name = "name", length = 40)
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, length = 128)
     private String email;
 
     @Column(name = "deposit")
@@ -207,5 +208,11 @@ public class AppUser implements UserDetails{
     @Override
     public boolean isEnabled() {
         return user.isEnabled();
+    }
+
+    @Override
+    @JsonIgnore
+    public String getUserId() {
+        return getId() + "";
     }
 }

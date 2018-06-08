@@ -2,7 +2,7 @@ package com.kpfu.itis.gasstation.controllers;
 
 import com.kpfu.itis.gasstation.forms.RegistrationForm;
 import com.kpfu.itis.gasstation.service.SecurityService;
-import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
+import com.kpfu.itis.gasstation.service.entities.AppUserService;
 import com.kpfu.itis.gasstation.validators.PasswordsEqualValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

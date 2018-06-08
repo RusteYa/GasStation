@@ -2,7 +2,7 @@ package com.kpfu.itis.gasstation.aspects;
 
 import com.kpfu.itis.gasstation.forms.RegistrationForm;
 import com.kpfu.itis.gasstation.forms.UserForm;
-import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
+import com.kpfu.itis.gasstation.service.entities.AppUserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;

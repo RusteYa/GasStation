@@ -3,7 +3,7 @@ package com.kpfu.itis.gasstation.service_test;
 import com.kpfu.itis.gasstation.entities.EngineOil;
 import com.kpfu.itis.gasstation.forms.EngineOilForm;
 import com.kpfu.itis.gasstation.repositories.EngineOilRepository;
-import com.kpfu.itis.gasstation.service.entities_service.EngineOilService;
+import com.kpfu.itis.gasstation.service.entities.EngineOilService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

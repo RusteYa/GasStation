@@ -5,7 +5,7 @@ import com.kpfu.itis.gasstation.entities.AppUser;
 import com.kpfu.itis.gasstation.forms.RegistrationForm;
 import com.kpfu.itis.gasstation.forms.UserForm;
 import com.kpfu.itis.gasstation.repositories.AppUserRepository;
-import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
+import com.kpfu.itis.gasstation.service.entities.AppUserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

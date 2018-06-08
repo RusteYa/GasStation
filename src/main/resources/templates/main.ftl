@@ -47,6 +47,7 @@
             </div>
         </div>
     </div>
+    <a href="/auth/google">Google</a>
 </div>
 
 </#macro>

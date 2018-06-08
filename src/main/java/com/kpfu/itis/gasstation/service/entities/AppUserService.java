@@ -1,4 +1,4 @@
-package com.kpfu.itis.gasstation.service.entities_service;
+package com.kpfu.itis.gasstation.service.entities;
 
 import com.kpfu.itis.gasstation.entities.AppRole;
 import com.kpfu.itis.gasstation.entities.AppUser;
@@ -8,10 +8,14 @@ import com.kpfu.itis.gasstation.repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.UserProfile;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
+import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Rustem.
@@ -21,12 +25,14 @@ public class AppUserService {
     private AppUserRepository appUserRepository;
     private final AppRoleService appRoleService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EntityManager entityManager;
 
     @Autowired
-    public AppUserService(AppUserRepository appUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder, AppRoleService appRoleService) {
+    public AppUserService(AppUserRepository appUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder, AppRoleService appRoleService, EntityManager entityManager) {
         this.appUserRepository = appUserRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.appRoleService = appRoleService;
+        this.entityManager = entityManager;
     }
 
     public AppUser saveAppUserFromRegistrationForm(RegistrationForm registrationForm) {
@@ -78,6 +84,10 @@ public class AppUserService {
         return appUserRepository.findByLogin(login);
     }
 
+    public AppUser getAppUserByEmail(String email) {
+        return appUserRepository.findByEmail(email);
+    }
+
     public List<AppUser> getAllAppUsers() {
         return appUserRepository.findAll();
     }
@@ -117,5 +127,50 @@ public class AppUserService {
             }
         }
         return userlist;
+    }
+
+
+
+
+    private String findAvailableUserName(String userName_prefix) {
+        AppUser account = getAppUserByLogin(userName_prefix);
+        if (account == null) {
+            return userName_prefix;
+        }
+        int i = 0;
+        while (true) {
+            String userName = userName_prefix + "_" + i++;
+            account = getAppUserByLogin(userName);
+            if (account == null) {
+                return userName;
+            }
+        }
+    }
+
+    public AppUser createAppUser(Connection<?> connection) {
+        UserProfile userProfile = connection.fetchUserProfile();
+        String email = userProfile.getEmail();
+        AppUser appUser = getAppUserByEmail(email);
+        if (appUser != null) {
+            return appUser;
+        }
+        String userName_prefix = userProfile.getFirstName().trim().toLowerCase()
+                + "_" + userProfile.getLastName().trim().toLowerCase();
+        String userName = this.findAvailableUserName(userName_prefix);
+        String randomPassword = UUID.randomUUID().toString().substring(0, 5);
+        String encrytedPassword = bCryptPasswordEncoder.encode(randomPassword);
+
+        appUser = new AppUser();
+        appUser.setHashedPassword(encrytedPassword);
+        appUser.setLogin(userName);
+        appUser.setEmail(email);
+        appUser.setName(userProfile.getFirstName() + " " + userProfile.getLastName());
+
+        entityManager.persist(appUser);
+
+        AppRole appRole = appRoleService.getClientAppRole();
+        appUser.setAppRole(appRole);
+
+        return appUser;
     }
 }

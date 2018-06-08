@@ -2,7 +2,7 @@ package com.kpfu.itis.gasstation.controllers;
 
 import com.kpfu.itis.gasstation.entities.News;
 import com.kpfu.itis.gasstation.forms.NewsForm;
-import com.kpfu.itis.gasstation.service.entities_service.NewsService;
+import com.kpfu.itis.gasstation.service.entities.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,7 +1,7 @@
 package com.kpfu.itis.gasstation.aspects;
 
 import com.kpfu.itis.gasstation.forms.EngineOilForm;
-import com.kpfu.itis.gasstation.service.entities_service.EngineOilService;
+import com.kpfu.itis.gasstation.service.entities.EngineOilService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;

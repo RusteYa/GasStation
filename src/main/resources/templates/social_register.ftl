@@ -1,0 +1,58 @@
+<#include "base.ftl">
+
+
+<#macro body>
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="/">Домой</a></li>
+            <li class="active">Регистрация через ${registrationForm.signInProvider}</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <@spring.bind "registrationForm"/>
+                <h3>Регистрация через ${registrationForm.signInProvider}</h3>
+                <form method="post" action="">
+                    <@spring.formHiddenInput "registrationForm.signInProvider" "class='form-control form-control-lg'"/>
+                    <@spring.formHiddenInput "registrationForm.providerUserId" "class='form-control form-control-lg'"/>
+                    <div class="form-group">
+                        <label>Логин</label>
+                        <@spring.formInput "registrationForm.login" "class='form-control form-control-lg'"/>
+                        <@spring.showErrors  '<br>', "error"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <@spring.formInput "registrationForm.email" "class='form-control form-control-lg'"/>
+                        <@spring.showErrors  '<br>', "error"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Имя</label>
+                        <@spring.formInput "registrationForm.name" "class='form-control form-control-lg'"/>
+                        <@spring.showErrors  '<br>', "error"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <@spring.formPasswordInput "registrationForm.password" "class='form-control form-control-lg'"/>
+                        <@spring.showErrors "<br>", "error"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Подтверждение пароля</label>
+                        <@spring.formPasswordInput "registrationForm.confirmPassword" "class='form-control form-control-lg'"/>
+                        <@spring.showErrors "<br>", "error"/>
+                    </div>
+                    <button type="submit" class="btn primary-btn btn-lg">Зарегистрироваться</button>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</div>
+</#macro>
+
+<@base_template />

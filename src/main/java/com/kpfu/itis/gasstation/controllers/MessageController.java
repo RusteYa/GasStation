@@ -1,8 +1,8 @@
 package com.kpfu.itis.gasstation.controllers;
 
 import com.kpfu.itis.gasstation.forms.MessageForm;
-import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
-import com.kpfu.itis.gasstation.service.entities_service.MessageService;
+import com.kpfu.itis.gasstation.service.entities.AppUserService;
+import com.kpfu.itis.gasstation.service.entities.MessageService;
 import com.kpfu.itis.gasstation.validators.HasLoginValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

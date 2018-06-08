@@ -2,7 +2,7 @@ package com.kpfu.itis.gasstation.service_test;
 
 import com.kpfu.itis.gasstation.entities.Fuel;
 import com.kpfu.itis.gasstation.repositories.FuelRepository;
-import com.kpfu.itis.gasstation.service.entities_service.FuelService;
+import com.kpfu.itis.gasstation.service.entities.FuelService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -2,7 +2,7 @@ package com.kpfu.itis.gasstation.service_test;
 
 import com.kpfu.itis.gasstation.entities.AppRole;
 import com.kpfu.itis.gasstation.repositories.AppRoleRepository;
-import com.kpfu.itis.gasstation.service.entities_service.AppRoleService;
+import com.kpfu.itis.gasstation.service.entities.AppRoleService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

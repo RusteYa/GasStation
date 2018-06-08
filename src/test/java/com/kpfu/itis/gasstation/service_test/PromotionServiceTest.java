@@ -3,7 +3,7 @@ package com.kpfu.itis.gasstation.service_test;
 import com.kpfu.itis.gasstation.entities.Promotion;
 import com.kpfu.itis.gasstation.forms.PromotionForm;
 import com.kpfu.itis.gasstation.repositories.PromotionRepository;
-import com.kpfu.itis.gasstation.service.entities_service.PromotionService;
+import com.kpfu.itis.gasstation.service.entities.PromotionService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

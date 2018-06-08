@@ -1,7 +1,7 @@
 package com.kpfu.itis.gasstation.validators;
 
 import com.kpfu.itis.gasstation.forms.MessageForm;
-import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
+import com.kpfu.itis.gasstation.service.entities.AppUserService;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

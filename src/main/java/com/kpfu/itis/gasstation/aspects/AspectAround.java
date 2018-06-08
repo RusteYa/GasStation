@@ -1,6 +1,6 @@
 package com.kpfu.itis.gasstation.aspects;
 
-import com.kpfu.itis.gasstation.service.entities_service.AppUserService;
+import com.kpfu.itis.gasstation.service.entities.AppUserService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

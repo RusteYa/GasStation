@@ -3,7 +3,7 @@ package com.kpfu.itis.gasstation.service_test;
 import com.kpfu.itis.gasstation.entities.News;
 import com.kpfu.itis.gasstation.forms.NewsForm;
 import com.kpfu.itis.gasstation.repositories.NewsRepository;
-import com.kpfu.itis.gasstation.service.entities_service.NewsService;
+import com.kpfu.itis.gasstation.service.entities.NewsService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

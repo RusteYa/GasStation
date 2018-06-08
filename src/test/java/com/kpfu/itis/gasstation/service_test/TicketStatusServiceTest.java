@@ -2,7 +2,7 @@ package com.kpfu.itis.gasstation.service_test;
 
 import com.kpfu.itis.gasstation.entities.TicketStatus;
 import com.kpfu.itis.gasstation.repositories.TicketStatusRepository;
-import com.kpfu.itis.gasstation.service.entities_service.TicketStatusService;
+import com.kpfu.itis.gasstation.service.entities.TicketStatusService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

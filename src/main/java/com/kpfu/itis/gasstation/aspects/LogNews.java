@@ -1,7 +1,7 @@
 package com.kpfu.itis.gasstation.aspects;
 
 import com.kpfu.itis.gasstation.forms.NewsForm;
-import com.kpfu.itis.gasstation.service.entities_service.NewsService;
+import com.kpfu.itis.gasstation.service.entities.NewsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;

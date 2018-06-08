@@ -2,7 +2,7 @@ package com.kpfu.itis.gasstation.controllers;
 
 import com.kpfu.itis.gasstation.entities.EngineOil;
 import com.kpfu.itis.gasstation.forms.EngineOilForm;
-import com.kpfu.itis.gasstation.service.entities_service.EngineOilService;
+import com.kpfu.itis.gasstation.service.entities.EngineOilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;

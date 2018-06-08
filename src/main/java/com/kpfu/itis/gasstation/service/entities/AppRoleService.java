@@ -1,4 +1,4 @@
-package com.kpfu.itis.gasstation.service.entities_service;
+package com.kpfu.itis.gasstation.service.entities;
 
 import com.kpfu.itis.gasstation.entities.AppRole;
 import com.kpfu.itis.gasstation.repositories.AppRoleRepository;

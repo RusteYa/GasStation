@@ -2,6 +2,9 @@ package com.kpfu.itis.gasstation.forms;
 
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionKey;
+import org.springframework.social.connect.UserProfile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -12,15 +15,16 @@ import javax.validation.constraints.Pattern;
  */
 public class RegistrationForm {
     @NotEmpty(message = "Введите логин")
-    @Length(max = 30)
+    @Length(max = 40)
     private String login;
 
     @NotEmpty(message = "Введите email")
     @Email(message = "Некорректный email")
+    @Length(max = 128)
     private String email;
 
     @NotEmpty(message = "Введите имя")
-    @Length(max = 30)
+    @Length(max = 40)
     private String name;
 
     @NotEmpty(message = "Введите пароль")
@@ -29,6 +33,22 @@ public class RegistrationForm {
 
     @NotEmpty(message = "Введите подтверждение пароля")
     private String confirmPassword;
+
+    private String signInProvider;
+    private String providerUserId;
+
+    public RegistrationForm() {
+    }
+
+    public RegistrationForm(Connection<?> connection) {
+        UserProfile socialUserProfile = connection.fetchUserProfile();
+        ConnectionKey key = connection.getKey();
+        this.email = socialUserProfile.getEmail();
+        this.login = socialUserProfile.getUsername();
+        this.name = socialUserProfile.getFirstName() + " " + socialUserProfile.getLastName();
+        this.signInProvider = key.getProviderId();
+        this.providerUserId = key.getProviderUserId();
+    }
 
     public String getConfirmPassword() {
         return confirmPassword;
@@ -62,7 +82,6 @@ public class RegistrationForm {
         this.email = email;
     }
 
-
     public String getName() {
         return name;
     }
@@ -71,4 +90,19 @@ public class RegistrationForm {
         this.name = name;
     }
 
+    public String getSignInProvider() {
+        return signInProvider;
+    }
+
+    public void setSignInProvider(String signInProvider) {
+        this.signInProvider = signInProvider;
+    }
+
+    public String getProviderUserId() {
+        return providerUserId;
+    }
+
+    public void setProviderUserId(String providerUserId) {
+        this.providerUserId = providerUserId;
+    }
 }
