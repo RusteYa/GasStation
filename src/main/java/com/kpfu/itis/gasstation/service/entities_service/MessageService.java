@@ -22,7 +22,7 @@ public class MessageService {
         this.appUserService = appUserService;
     }
 
-    public void saveMessageFromMessageForm(MessageForm messageForm) {
+    public Message saveMessageFromMessageForm(MessageForm messageForm) {
         Message message = new Message();
         message.setMessageReceiver(appUserService.getAppUserByLogin(messageForm.getRecipientLogin()));
         message.setMessageSender(appUserService.getCurrentAppUser());
@@ -30,6 +30,6 @@ public class MessageService {
         message.setBody(messageForm.getBody());
         message.setDate(new Date());
 
-        messageRepository.save(message);
+        return messageRepository.save(message);
     }
 }

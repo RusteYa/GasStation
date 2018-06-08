@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface PromotionRepository extends JpaRepository<Promotion, Long> {
     Promotion findById(int id);
 
-    void deletePromotionById(int id);
+    int deletePromotionById(int id);
 }

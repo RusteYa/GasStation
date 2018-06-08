@@ -14,7 +14,7 @@ import java.util.List;
 public interface EngineOilRepository extends JpaRepository<EngineOil, Long> {
     EngineOil findById(int id);
 
-    void deleteEngineOilById(int id);
+    int deleteEngineOilById(int id);
 
     List<EngineOil> findAllByManafacturer(String manafacturer);
 

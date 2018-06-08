@@ -28,7 +28,7 @@ public class PromotionService {
         return promotionRepository.findAll();
     }
 
-    public void savePromotionFromPromotionForm(PromotionForm promotionForm) {
+    public Promotion savePromotionFromPromotionForm(PromotionForm promotionForm) {
         String photoPath = uploadService.upload(promotionForm.getFileDatas());
 
         Promotion promotion = new Promotion();
@@ -37,11 +37,11 @@ public class PromotionService {
         promotion.setPhotoPath(photoPath);
         promotion.setDate(new Date());
 
-        promotionRepository.save(promotion);
+        return promotionRepository.save(promotion);
     }
 
-    public void deletePromotionWithId(int id) {
-        promotionRepository.deletePromotionById(id);
+    public int deletePromotionWithId(int id) {
+        return promotionRepository.deletePromotionById(id);
     }
 
     public PromotionForm createPromotionFormFromPromotionById(int id) {
@@ -53,7 +53,7 @@ public class PromotionService {
         return promotionForm;
     }
 
-    public void updatePromotionFromPromotionFormById(int id, PromotionForm promotionForm) {
+    public Promotion updatePromotionFromPromotionFormById(int id, PromotionForm promotionForm) {
         Promotion promotion = promotionRepository.findById(id);
         String photoPath = uploadService.upload(promotionForm.getFileDatas());
 
@@ -64,6 +64,6 @@ public class PromotionService {
             promotion.setPhotoPath(photoPath);
         }
 
-        promotionRepository.save(promotion);
+        return promotionRepository.save(promotion);
     }
 }

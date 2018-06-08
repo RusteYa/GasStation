@@ -30,7 +30,7 @@ public class TicketService {
         return ticketRepository.findAll();
     }
 
-    public void saveTicketFromTicketRequestForm(TicketRequestForm ticketRequestForm) {
+    public Ticket saveTicketFromTicketRequestForm(TicketRequestForm ticketRequestForm) {
         Ticket ticket = new Ticket();
         ticket.setHeader(ticketRequestForm.getHeader());
         ticket.setRequest(ticketRequestForm.getRequest());
@@ -39,7 +39,7 @@ public class TicketService {
         ticket.setTicketClient(appUserService.getCurrentAppUser());
         ticket.setTicketStaff(appUserService.getFirstManagerAppUser());
 
-        ticketRepository.save(ticket);
+        return ticketRepository.save(ticket);
     }
 
     public TicketResponseForm createTicketResponseFormFromTicketById(int id) {
@@ -52,12 +52,12 @@ public class TicketService {
         return ticketResponseForm;
     }
 
-    public void updateTicketFromTicketResponseFormById(int id, TicketResponseForm ticketResponseForm) {
+    public Ticket updateTicketFromTicketResponseFormById(int id, TicketResponseForm ticketResponseForm) {
         Ticket ticket = ticketRepository.findById(id);
 
         ticket.setResponse(ticketResponseForm.getResponse());
         ticket.setTicketStatus(ticketStatusService.getTicketStatusWithName(ticketResponseForm.getStatus()));
 
-        ticketRepository.save(ticket);
+        return ticketRepository.save(ticket);
     }
 }

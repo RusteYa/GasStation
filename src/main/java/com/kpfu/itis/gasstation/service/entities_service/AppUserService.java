@@ -29,7 +29,7 @@ public class AppUserService {
         this.appRoleService = appRoleService;
     }
 
-    public void saveAppUserFromRegistrationForm(RegistrationForm registrationForm) {
+    public AppUser saveAppUserFromRegistrationForm(RegistrationForm registrationForm) {
         AppRole appRole = appRoleService.getClientAppRole();
 
         AppUser appUser = new AppUser();
@@ -39,7 +39,7 @@ public class AppUserService {
         appUser.setHashedPassword(bCryptPasswordEncoder.encode(registrationForm.getPassword()));
         appUser.setAppRole(appRole);
 
-        appUserRepository.save(appUser);
+        return appUserRepository.save(appUser);
     }
 
     public UserForm createUserFormFromAppUserWithId(int id) {
@@ -92,11 +92,11 @@ public class AppUserService {
         return removeCurrentAppUserFromAppUsersList(userlist);
     }
 
-    public void deleteAppUserWithId(int id) {
-        appUserRepository.deleteAppUserById(id);
+    public int deleteAppUserWithId(int id) {
+        return appUserRepository.deleteAppUserById(id);
     }
 
-    public void updateAppUserFromUserFormById(int id, UserForm userForm) {
+    public AppUser updateAppUserFromUserFormById(int id, UserForm userForm) {
         AppUser appUser = appUserRepository.findById(id);
 
         appUser.setName(userForm.getName());
@@ -104,7 +104,7 @@ public class AppUserService {
         appUser.setEmail(userForm.getEmail());
         appUser.setAppRole(appRoleService.getAppRoleWithName(userForm.getRole()));
 
-        appUserRepository.save(appUser);
+        return appUserRepository.save(appUser);
     }
 
     private List<AppUser> removeCurrentAppUserFromAppUsersList(List<AppUser> userlist) {

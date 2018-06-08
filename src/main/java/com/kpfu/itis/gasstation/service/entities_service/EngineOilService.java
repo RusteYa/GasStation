@@ -35,7 +35,7 @@ public class EngineOilService {
         return engineOilRepository.findAllManafacturers();
     }
 
-    public void saveEngineOilFromEngineOilForm(EngineOilForm engineOilForm) {
+    public EngineOil saveEngineOilFromEngineOilForm(EngineOilForm engineOilForm) {
         String photoPath = uploadService.upload(engineOilForm.getFileDatas());
 
         EngineOil engineOil = new EngineOil();
@@ -44,11 +44,11 @@ public class EngineOilService {
         engineOil.setManafacturer(engineOilForm.getManafacturer());
         engineOil.setPhotoPath(photoPath);
 
-        engineOilRepository.save(engineOil);
+        return engineOilRepository.save(engineOil);
     }
 
-    public void deleteEngineOilWithId(int id) {
-        engineOilRepository.deleteEngineOilById(id);
+    public int deleteEngineOilWithId(int id) {
+        return engineOilRepository.deleteEngineOilById(id);
     }
 
     public EngineOilForm createEngineOilFormFromEngineOilById(int id) {
@@ -61,7 +61,7 @@ public class EngineOilService {
         return engineOilForm;
     }
 
-    public void updateEngineOilFromEngineOilFormById(int id, EngineOilForm engineOilForm) {
+    public EngineOil updateEngineOilFromEngineOilFormById(int id, EngineOilForm engineOilForm) {
         EngineOil engineOil = engineOilRepository.findById(id);
         String photoPath = uploadService.upload(engineOilForm.getFileDatas());
 
@@ -72,6 +72,6 @@ public class EngineOilService {
             engineOil.setPhotoPath(photoPath);
         }
 
-        engineOilRepository.save(engineOil);
+        return engineOilRepository.save(engineOil);
     }
 }

@@ -28,7 +28,7 @@ public class NewsService {
         return newsRepository.findAll();
     }
 
-    public void saveNewsFromNewsForm(NewsForm newsForm) {
+    public News saveNewsFromNewsForm(NewsForm newsForm) {
         String photoPath = uploadService.upload(newsForm.getFileDatas());
 
         News news = new News();
@@ -37,11 +37,11 @@ public class NewsService {
         news.setPhotoPath(photoPath);
         news.setDate(new Date());
 
-        newsRepository.save(news);
+        return newsRepository.save(news);
     }
 
-    public void deleteNewsWithId(int id) {
-        newsRepository.deleteNewsById(id);
+    public int deleteNewsWithId(int id) {
+        return newsRepository.deleteNewsById(id);
     }
 
     public NewsForm createNewsFormFromNewsById(int id) {
@@ -53,7 +53,7 @@ public class NewsService {
         return newsForm;
     }
 
-    public void updateNewsFromNewsFormById(int id, NewsForm newsForm) {
+    public News updateNewsFromNewsFormById(int id, NewsForm newsForm) {
         News news = newsRepository.findById(id);
         String photoPath = uploadService.upload(newsForm.getFileDatas());
 
@@ -64,6 +64,6 @@ public class NewsService {
             news.setPhotoPath(photoPath);
         }
 
-        newsRepository.save(news);
+        return newsRepository.save(news);
     }
 }

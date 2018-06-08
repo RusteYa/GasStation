@@ -19,5 +19,5 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
     List<AppUser> findAllByLoginContains(String value);
 
-    void deleteAppUserById(int id);
+    int deleteAppUserById(int id);
 }
