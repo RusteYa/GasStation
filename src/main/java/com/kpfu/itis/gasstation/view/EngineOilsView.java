@@ -40,7 +40,7 @@ public class EngineOilsView extends AbstractView {
         PdfDocument pdf = new PdfDocument(pdfWriter);
         Document pdfDocument = new Document(pdf);
 
-        PdfFont font = PdfFontFactory.createFont("c:/windows/fonts/times.ttf", "cp1251");
+        PdfFont font = PdfFontFactory.createFont("src/main/resources/static/fonts/times.ttf", "cp1251");
 
         Paragraph title = new Paragraph("Моторные масла");
         title.setFont(font);

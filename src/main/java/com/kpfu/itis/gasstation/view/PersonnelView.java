@@ -40,7 +40,7 @@ public class PersonnelView extends AbstractView {
         PdfDocument pdf = new PdfDocument(pdfWriter);
         Document pdfDocument = new Document(pdf);
 
-        PdfFont font = PdfFontFactory.createFont("c:/windows/fonts/times.ttf", "cp1251");
+        PdfFont font = PdfFontFactory.createFont("src/main/resources/static/fonts/times.ttf", "cp1251");
 
         Paragraph title = new Paragraph("Сотрудники и клиенты АЗС");
         title.setFont(font);
