@@ -1,8 +1,10 @@
 package com.kpfu.itis.gasstation.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,10 +14,17 @@ import java.io.FileOutputStream;
  */
 @Service
 public class UploadService {
-    private final String UPLOAD_DIRECTORY = "C:\\upload";
+    private final String UPLOAD_DIRECTORY = "upload";
+    private final ServletContext servletContext;
+
+    @Autowired
+    public UploadService(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
 
     public String upload(MultipartFile[] fileDatas) {
-        File uploadRootDir = new File(UPLOAD_DIRECTORY);
+        String uploadPath = servletContext.getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+        File uploadRootDir = new File(uploadPath);
 
         if (!uploadRootDir.exists()) {
             uploadRootDir.mkdirs();
