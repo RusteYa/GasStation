@@ -42,7 +42,7 @@ public class UploadService {
                     stream.close();
 
                     System.out.println("Write file: " + serverFile);
-                    return serverFile.getName();
+                    return UPLOAD_DIRECTORY + File.separator + serverFile.getName();
                 } catch (Exception e) {
                     System.out.println("Error Write file: " + name);
                 }
