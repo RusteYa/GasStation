@@ -50,7 +50,7 @@ public class NewsService {
         news.setHeader(newsFormClient.getHeader());
         news.setBody(newsFormClient.getBody());
         news.setDate(new Date());
-        news.setPhotoPath("");
+        news.setPhotoPath("img/banner1.jpg");
 
         return newsRepository.save(news);
     }
