@@ -22,10 +22,10 @@ import java.util.UUID;
  */
 @Service
 public class AppUserService {
-    private AppUserRepository appUserRepository;
     private final AppRoleService appRoleService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
     private final EntityManager entityManager;
+    private AppUserRepository appUserRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public AppUserService(AppUserRepository appUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder, AppRoleService appRoleService, EntityManager entityManager) {
@@ -84,6 +84,15 @@ public class AppUserService {
         return appUserRepository.findByLogin(login);
     }
 
+    public AppUser getAppUserByLoginAndPassword(String login, String password) {
+        AppUser appUser = appUserRepository.findByLogin(login);
+        if (appUser != null && bCryptPasswordEncoder.matches(password, appUser.getHashedPassword())) {
+            return appUser;
+        } else {
+            return null;
+        }
+    }
+
     public AppUser getAppUserByEmail(String email) {
         return appUserRepository.findByEmail(email);
     }
@@ -128,9 +137,6 @@ public class AppUserService {
         }
         return userlist;
     }
-
-
-
 
     private String findAvailableUserName(String userName_prefix) {
         AppUser account = getAppUserByLogin(userName_prefix);

@@ -23,6 +23,7 @@ public class AppRole {
     private int level;
 
     @OneToMany(mappedBy = "appRole", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnore
     private List<AppUser> usersWithAppRole;
 
     public int getId() {

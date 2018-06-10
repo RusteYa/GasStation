@@ -43,15 +43,19 @@ public class AppUser implements UserDetails, SocialUserDetails{
     @JoinColumn(name = "role_id", nullable = false)
     private AppRole appRole;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "messageSender", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Message> sentMessages;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "messageReceiver", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Message> receivedMessages;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "ticketClient", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Ticket> clientTickets;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "ticketStaff", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Ticket> staffTickets;
 

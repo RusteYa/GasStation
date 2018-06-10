@@ -31,14 +31,14 @@ public class SocialLoginController {
     private final AppUserService appUserService;
     private final ConnectionFactoryLocator connectionFactoryLocator;
     private final UsersConnectionRepository connectionRepository;
-    @Autowired
-    private SecurityService securityService;
+    private final SecurityService securityService;
 
     @Autowired
-    public SocialLoginController(AppUserService appUserService, ConnectionFactoryLocator connectionFactoryLocator, UsersConnectionRepository connectionRepository) {
+    public SocialLoginController(AppUserService appUserService, ConnectionFactoryLocator connectionFactoryLocator, UsersConnectionRepository connectionRepository, SecurityService securityService) {
         this.appUserService = appUserService;
         this.connectionFactoryLocator = connectionFactoryLocator;
         this.connectionRepository = connectionRepository;
+        this.securityService = securityService;
     }
 
     @InitBinder(value = "registrationForm")

@@ -2,6 +2,7 @@ package com.kpfu.itis.gasstation.service.entities;
 
 import com.kpfu.itis.gasstation.entities.News;
 import com.kpfu.itis.gasstation.forms.NewsForm;
+import com.kpfu.itis.gasstation.forms.client.NewsFormClient;
 import com.kpfu.itis.gasstation.repositories.NewsRepository;
 import com.kpfu.itis.gasstation.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,10 @@ public class NewsService {
         return newsRepository.findAll();
     }
 
+    public News getNewsById(int id) {
+        return newsRepository.findById(id);
+    }
+
     public News saveNewsFromNewsForm(NewsForm newsForm) {
         String photoPath = uploadService.upload(newsForm.getFileDatas());
 
@@ -36,6 +41,16 @@ public class NewsService {
         news.setBody(newsForm.getBody());
         news.setPhotoPath(photoPath);
         news.setDate(new Date());
+
+        return newsRepository.save(news);
+    }
+
+    public News saveNewsFromNewsFormClient(NewsFormClient newsFormClient) {
+        News news = new News();
+        news.setHeader(newsFormClient.getHeader());
+        news.setBody(newsFormClient.getBody());
+        news.setDate(new Date());
+        news.setPhotoPath("");
 
         return newsRepository.save(news);
     }
@@ -63,6 +78,16 @@ public class NewsService {
         if (!"".equals(photoPath)) {
             news.setPhotoPath(photoPath);
         }
+
+        return newsRepository.save(news);
+    }
+
+    public News updateNewsFromNewsFormClientById(int id, NewsFormClient newsFormClient) {
+        News news = newsRepository.findById(id);
+
+        news.setHeader(newsFormClient.getHeader());
+        news.setBody(newsFormClient.getBody());
+        news.setDate(new Date());
 
         return newsRepository.save(news);
     }
