@@ -64,7 +64,7 @@
                         </#if>
 
                         <ul class="custom-menu">
-                            <li><a href="#"><i class="fa fa-user-o"></i>Мой аккаунт</a></li>
+                            <li><a><i class="fa fa-user-o"></i>Мой аккаунт</a></li>
                             <li><a href="/messages"><i class="fa fa-comment-o"></i>Мои сообщения</a></li>
                             <li><a href="/tickets"><i class="fa  fa-question-circle-o"></i>Мои заявки</a></li>
                         </ul>
@@ -89,13 +89,13 @@
                     <#switch user.appRole.name>
                         <#case "ROLE_MANAGER">
                             <li><a href="/manager/personnel_management">Управление персоналом</a></li>
-                            <li><a href="#">Касса</a></li>
+                            <li><a>Касса</a></li>
                             <li><a href="/contentmanager/news/add">Добавить новость</a></li>
                             <li><a href="/contentmanager/promotion/add">Добавить акцию</a></li>
                             <li><a href="/contentmanager/engineoil/add">Добавить моторное масло</a></li>
                             <#break>
                         <#case "ROLE_CASHIER">
-                            <li><a href="#">Касса</a></li>
+                            <li><a>Касса</a></li>
                             <#break>
                         <#case "ROLE_CONTENTMANAGER">
                             <li><a href="/contentmanager/news/add">Добавить новость</a></li>

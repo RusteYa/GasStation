@@ -26,14 +26,14 @@
     <div class="row">
         <div class="newslist clearfix col-md-11">
             <div class="news_image">
-                <a href="#"><img src="${news.photoPath}" height="200" width="260"></a>
+                <a><img src="${news.photoPath}" height="200" width="260"></a>
             </div>
             <div class="text_content">
                 <div class="news_date">
                     ${news.date}
                 </div>
                 <div class="news_header">
-                    <a href="#">
+                    <a>
                         ${news.header}
                     </a>
                 </div>

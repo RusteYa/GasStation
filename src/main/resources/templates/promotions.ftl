@@ -26,14 +26,14 @@
     <div class="row">
         <div class="promolist clearfix col-md-11">
             <div class="promo_image">
-                <a href="#"><img src="${promo.photoPath}" height="200" width="260"></a>
+                <a><img src="${promo.photoPath}" height="200" width="260"></a>
             </div>
             <div class="text_content">
                 <div class="promo_date">
                     ${promo.date}
                 </div>
                 <div class="promo_header">
-                    <a href="#">
+                    <a>
                         ${promo.header}
                     </a>
                 </div>
